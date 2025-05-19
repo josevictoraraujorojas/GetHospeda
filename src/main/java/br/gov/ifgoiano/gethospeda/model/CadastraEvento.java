@@ -7,7 +7,7 @@ import java.util.Date;
 @Table(name = "cadastra_evento")
 public class CadastraEvento{
     @ManyToOne()
-    @PrimaryKeyJoinColumn(name = "hospe_id",referencedColumnName = "id")
+    @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
     private Hospede hospede;
     @Id
     @ManyToOne()
