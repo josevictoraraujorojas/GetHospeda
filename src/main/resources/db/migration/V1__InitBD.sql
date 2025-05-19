@@ -13,7 +13,7 @@ CREATE TABLE avaliacao_cliente
 (
     id              BIGINT NOT NULL,
     nota            INT    NOT NULL,
-    coentario       VARCHAR(255) NULL,
+    comentario      VARCHAR(255) NULL,
     data_avaliacao DOUBLE NULL,
     hospede_id      BIGINT NULL,
     proprietario_id BIGINT NULL,
@@ -24,7 +24,7 @@ CREATE TABLE avaliacao_imovel
 (
     id         BIGINT NOT NULL,
     nota       INT    NOT NULL,
-    coentario  VARCHAR(255) NULL,
+    comentario VARCHAR(255) NULL,
     data_avaliacao DOUBLE NULL,
     hospede_id BIGINT NULL,
     imovel_id  BIGINT NULL,
