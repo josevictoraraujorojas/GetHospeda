@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -15,10 +16,13 @@ public class Denuncia {
     private StatusDenuncia status;
     private Date dataValidacao;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     private Administrador administrador;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     private Usuario denunciante;
     @ManyToOne(fetch = FetchType.EAGER)
+    @JsonBackReference
     private Usuario denunciado;
 
     public Denuncia() {

@@ -2,6 +2,7 @@ package br.gov.ifgoiano.gethospeda.controller;
 
 import br.gov.ifgoiano.gethospeda.model.Servico;
 import br.gov.ifgoiano.gethospeda.service.ServicoService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/servicos")
 public class ServicoController {
+    @Autowired
     private final ServicoService service;
 
     public ServicoController(ServicoService service) {
