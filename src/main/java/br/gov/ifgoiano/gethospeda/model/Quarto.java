@@ -16,7 +16,7 @@ public class Quarto implements Serializable {
     private boolean banheiroPrivativo;
     private double areaM2;
     private String descricao;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Imovel imovel;
     @OneToMany(mappedBy = "quarto")
     List<Reserva> reservas = new ArrayList<>();

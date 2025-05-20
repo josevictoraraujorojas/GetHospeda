@@ -14,11 +14,11 @@ public class Denuncia {
     private Date dataEnvio;
     private StatusDenuncia status;
     private Date dataValidacao;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Administrador administrador;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Usuario denunciante;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Usuario denunciado;
 
     public Denuncia() {

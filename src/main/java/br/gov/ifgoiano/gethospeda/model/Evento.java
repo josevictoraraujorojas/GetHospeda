@@ -17,7 +17,7 @@ public class Evento implements Serializable {
     private Date dataInicio;
     private Date dataFim;
     private int capacidade;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Imovel imovel;
     @OneToMany(mappedBy = "evento")
     List<CadastraEvento> cadastros;

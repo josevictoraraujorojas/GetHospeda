@@ -14,7 +14,7 @@ public class Servico {
     private String descricao;
     private double preco;
     private boolean disponibilidade;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Imovel imovel;
     @OneToMany(mappedBy = "servico")
     private List<SolicitaServico> solicitacoes;
