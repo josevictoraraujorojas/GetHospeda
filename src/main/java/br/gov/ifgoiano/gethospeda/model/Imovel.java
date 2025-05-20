@@ -8,6 +8,7 @@ import java.util.List;
 @Table(name = "imovel")
 public class Imovel {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titulo;
     private String descricao;

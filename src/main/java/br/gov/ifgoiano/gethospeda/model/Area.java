@@ -8,6 +8,7 @@ import java.io.Serializable;
 @Table
 public class Area implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String tipo;
     private String descricao;

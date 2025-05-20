@@ -7,6 +7,7 @@ import java.util.Date;
 @Table(name = "reserva")
 public class Reserva {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Date dataInicio;
     private Date dataFim;

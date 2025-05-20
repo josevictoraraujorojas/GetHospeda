@@ -8,9 +8,10 @@ import java.io.Serializable;
 @Table(name = "avaliacao_cliente")
 public class AvaliacaoCliente implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private int nota;
-    private String coentario;
+    private String comentario;
     private Double dataAvaliacao;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
@@ -38,12 +39,12 @@ public class AvaliacaoCliente implements Serializable {
         this.nota = nota;
     }
 
-    public String getCoentario() {
-        return coentario;
+    public String getComentario() {
+        return comentario;
     }
 
-    public void setCoentario(String coentario) {
-        this.coentario = coentario;
+    public void setComentario(String comentario) {
+        this.comentario = comentario;
     }
 
     public Double getDataAvaliacao() {

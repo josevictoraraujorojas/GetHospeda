@@ -1,8 +1,6 @@
 package br.gov.ifgoiano.gethospeda.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 
@@ -10,6 +8,7 @@ import java.io.Serializable;
 @Table(name = "usuario")
 public class Usuario implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String email;

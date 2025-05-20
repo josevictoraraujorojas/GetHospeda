@@ -9,6 +9,7 @@ import java.util.List;
 @Table(name = "evento")
 public class Evento implements Serializable {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String nome;
     private String local;
