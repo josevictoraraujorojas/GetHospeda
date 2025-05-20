@@ -12,7 +12,7 @@ public class Area implements Serializable {
     private long id;
     private String tipo;
     private String descricao;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Imovel imovel;
     private String horarioDisponivel;
     private String regrasDeUso;

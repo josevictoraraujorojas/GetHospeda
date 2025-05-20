@@ -19,7 +19,7 @@ public class Imovel {
     private float precoDiaria;
     private String politicaDeCancelamento;
     private String status;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Proprietario proprietario;
     @OneToMany(mappedBy = "imovel")
     List<Quarto> quartos = new ArrayList<>();
