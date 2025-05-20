@@ -1,25 +1,38 @@
 package br.gov.ifgoiano.gethospeda.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.PrimaryKeyJoinColumn;
+import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 public class SolicitaServico implements Serializable {
+
+    @EmbeddedId
+    private SolicitaServicoId id;
+
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "hospede_id", referencedColumnName = "id")
+    @MapsId("hospedeId")
+    @JoinColumn(name = "hospede_id")
     private Hospede hospede;
-    @Id
+
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "servico_id", referencedColumnName = "id")
+    @MapsId("servicoId")
+    @JoinColumn(name = "servico_id")
     private Servico servico;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date dataSolicitacao;
 
     public SolicitaServico() {
+    }
+
+    public SolicitaServicoId getId() {
+        return id;
+    }
+
+    public void setId(SolicitaServicoId id) {
+        this.id = id;
     }
 
     public Hospede getHospede() {
