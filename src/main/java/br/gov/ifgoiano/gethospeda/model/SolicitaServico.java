@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -14,11 +15,13 @@ public class SolicitaServico implements Serializable {
     @ManyToOne
     @MapsId("hospedeId")
     @JoinColumn(name = "hospede_id")
+    @JsonBackReference
     private Hospede hospede;
 
     @ManyToOne
     @MapsId("servicoId")
     @JoinColumn(name = "servico_id")
+    @JsonBackReference
     private Servico servico;
 
     @Temporal(TemporalType.TIMESTAMP)

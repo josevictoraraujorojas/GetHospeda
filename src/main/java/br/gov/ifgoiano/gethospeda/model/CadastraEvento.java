@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;
 
@@ -10,11 +11,13 @@ public class CadastraEvento {
     @Id
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
+    @JsonBackReference
     private Evento evento;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "hospede_id", referencedColumnName = "id")
+    @JsonBackReference
     private Hospede hospede;
 
     private Date dataCadastro;
