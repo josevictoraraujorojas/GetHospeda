@@ -7,6 +7,7 @@ import java.util.Date;
 @Table(name = "denuncia")
 public class Denuncia {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String descricao;
     private String motivo;
