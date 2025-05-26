@@ -16,12 +16,11 @@ public class Servico {
     private String descricao;
     private double preco;
     private boolean disponibilidade;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
-    private Imovel imovel;
     @OneToMany(mappedBy = "servico")
-    @JsonManagedReference
     private List<SolicitaServico> solicitacoes;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Imovel imovel;
 
     public Servico() {
     }

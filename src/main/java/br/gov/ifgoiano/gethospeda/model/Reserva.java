@@ -17,11 +17,9 @@ public class Reserva {
     private String status;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
-    @JsonBackReference
     private Hospede hospede;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "quarto_id",referencedColumnName = "id")
-    @JsonBackReference
     private Quarto quarto;
 
     public Reserva() {

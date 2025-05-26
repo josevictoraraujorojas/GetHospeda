@@ -11,13 +11,11 @@ public class CadastraEvento {
     @Id
     @ManyToOne
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
-    @JsonBackReference
     private Evento evento;
 
     @Id
     @ManyToOne
     @JoinColumn(name = "hospede_id", referencedColumnName = "id")
-    @JsonBackReference
     private Hospede hospede;
 
     private Date dataCadastro;

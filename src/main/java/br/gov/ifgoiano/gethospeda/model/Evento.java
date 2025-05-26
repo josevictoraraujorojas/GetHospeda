@@ -20,10 +20,8 @@ public class Evento implements Serializable {
     private Date dataFim;
     private int capacidade;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     private Imovel imovel;
     @OneToMany(mappedBy = "evento")
-    @JsonManagedReference
     List<CadastraEvento> cadastros;
 
     public Evento() {

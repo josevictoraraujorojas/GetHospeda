@@ -16,11 +16,9 @@ public class AvaliacaoCliente implements Serializable {
     private Double dataAvaliacao;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
-    @JsonBackReference
     private Hospede hospede;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "imovel_id",referencedColumnName = "id")
-    @JsonBackReference
     private Proprietario proprietario;
 
     public AvaliacaoCliente() {

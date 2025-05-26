@@ -16,11 +16,9 @@ public class AvaliacaoImovel implements Serializable {
     private Double dataAvaliacao;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
-    @JsonBackReference
     private Hospede hospede;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "imovel_id",referencedColumnName = "id")
-    @JsonBackReference
     private Imovel imovel;
 
     public AvaliacaoImovel() {

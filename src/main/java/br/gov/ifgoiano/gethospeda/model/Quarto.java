@@ -19,10 +19,8 @@ public class Quarto implements Serializable {
     private double areaM2;
     private String descricao;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
     private Imovel imovel;
     @OneToMany(mappedBy = "quarto")
-    @JsonManagedReference
     List<Reserva> reservas = new ArrayList<>();
 
     public Quarto() {
