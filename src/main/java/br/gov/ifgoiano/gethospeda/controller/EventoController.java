@@ -1,7 +1,11 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
+import br.gov.ifgoiano.gethospeda.dto.EventoDTO;
+import br.gov.ifgoiano.gethospeda.dto.EventoDTOOutput;
+import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Evento;
 import br.gov.ifgoiano.gethospeda.service.EventoService;
+import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -37,7 +41,7 @@ public class EventoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public List<Evento> listarTodos() {
+    public List<EventoDTOOutput> listarTodos() {
         return service.findAll();
     }
 
@@ -57,8 +61,9 @@ public class EventoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ResponseEntity<Evento> buscarPorId(@PathVariable Long id) {
-        return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<EventoDTOOutput> buscarPorId(@PathVariable Long id) {
+        EventoDTOOutput usuario = service.findById(id);
+        return ResponseEntity.ok(DataMapper.parseObject(usuario, EventoDTOOutput.class));
     }
 
     @PostMapping
@@ -77,8 +82,8 @@ public class EventoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public Evento salvar(@RequestBody Evento evento) {
-        return service.save(evento);
+    public EventoDTO salvar(@RequestBody EventoDTO eventoDTO) {
+        return service.save(eventoDTO);
     }
 
     @PutMapping("/{id}")
@@ -97,10 +102,13 @@ public class EventoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ResponseEntity<Evento> atualizar(@PathVariable Long id, @RequestBody Evento evento) {
-        if (!service.findById(id).isPresent()) return ResponseEntity.notFound().build();
-        evento.setId(id);
-        return ResponseEntity.ok(service.save(evento));
+    public ResponseEntity<EventoDTO> atualizar(@PathVariable Long id, @RequestBody EventoDTO eventoDTO) {
+        try {
+            eventoDTO.setId(id);
+            return ResponseEntity.ok(service.update(eventoDTO));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -120,8 +128,11 @@ public class EventoController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (!service.findById(id).isPresent()) return ResponseEntity.notFound().build();
-        service.delete(id);
-        return ResponseEntity.noContent().build();
+        try {
+            service.delete(id); // delete já lança a exceção se não existir
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
