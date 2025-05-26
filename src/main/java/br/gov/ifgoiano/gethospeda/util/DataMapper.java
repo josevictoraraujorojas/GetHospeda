@@ -1,7 +1,5 @@
 package br.gov.ifgoiano.gethospeda.util;
 
-import br.gov.ifgoiano.gethospeda.dto.EventoDTO;
-import br.gov.ifgoiano.gethospeda.model.Evento;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;

@@ -1,11 +1,8 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
-import br.gov.ifgoiano.gethospeda.dto.EventoDTO;
-import br.gov.ifgoiano.gethospeda.dto.EventoDTOOutput;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
-import br.gov.ifgoiano.gethospeda.model.CadastraEvento;
 import br.gov.ifgoiano.gethospeda.model.Servico;
 import br.gov.ifgoiano.gethospeda.service.ServicoService;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;

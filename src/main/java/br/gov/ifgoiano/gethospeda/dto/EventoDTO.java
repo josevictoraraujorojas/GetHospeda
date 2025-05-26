@@ -1,7 +1,5 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-import br.gov.ifgoiano.gethospeda.model.Imovel;
-
 import java.util.Date;
 import java.util.Objects;
 
