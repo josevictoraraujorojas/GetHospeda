@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
+import br.gov.ifgoiano.gethospeda.dto.ImovelCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.ImovelResumoDTO;
 import br.gov.ifgoiano.gethospeda.model.Imovel;
 import br.gov.ifgoiano.gethospeda.repository.ImovelRepository;
 import br.gov.ifgoiano.gethospeda.service.ImovelService;
@@ -16,22 +18,22 @@ public class ImovelController {
     private ImovelService imovelService;
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Imovel findById(@PathVariable long id) {
+    public ImovelCompletoDTO findById(@PathVariable long id) {
         return imovelService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Imovel> findAll() {
+    public List<ImovelResumoDTO> findAll() {
         return imovelService.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Imovel create(@RequestBody Imovel imovel) {
+    public ImovelCompletoDTO create(@RequestBody ImovelCompletoDTO imovel) {
         return imovelService.save(imovel);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Imovel update(@RequestBody Imovel imovel) {
+    public ImovelCompletoDTO update(@RequestBody ImovelCompletoDTO imovel) {
         return imovelService.update(imovel);
     }
 

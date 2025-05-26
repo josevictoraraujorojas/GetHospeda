@@ -1,8 +1,11 @@
 package br.gov.ifgoiano.gethospeda.service;
 
+import br.gov.ifgoiano.gethospeda.dto.ImovelCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.ImovelResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Imovel;
 import br.gov.ifgoiano.gethospeda.repository.ImovelRepository;
+import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +18,24 @@ public class ImovelService {
     private ImovelRepository imovelRepository;
     private Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public List<Imovel> findAll() {
+    public List<ImovelResumoDTO> findAll() {
         logger.info("findAll");
-        return imovelRepository.findAll();
+        List<Imovel> imoveis = imovelRepository.findAll();
+        return DataMapper.parseListObjects(imoveis, ImovelResumoDTO.class);
     }
 
-    public Imovel findById(Long id) {
+    public ImovelCompletoDTO findById(Long id) {
         logger.info("findById");
-        return imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
+        Imovel imovel = imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
+        return DataMapper.parseObject(imovel, ImovelCompletoDTO.class);
     }
 
-    public Imovel save(Imovel imovel) {
+    public ImovelCompletoDTO save(ImovelCompletoDTO imovel) {
         logger.info("save");
-        return imovelRepository.save(imovel);
+        return DataMapper.parseObject(imovelRepository.save(DataMapper.parseObject(imovel,Imovel.class)),ImovelCompletoDTO.class);
     }
 
-    public Imovel update(Imovel imovel) {
+    public ImovelCompletoDTO update(ImovelCompletoDTO imovel) {
         logger.info("update");
         Imovel entity = imovelRepository.findById(imovel.getId()).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
         entity.setTitulo(imovel.getTitulo());
@@ -42,7 +47,7 @@ public class ImovelService {
         entity.setPrecoDiaria(imovel.getPrecoDiaria());
         entity.setPoliticaDeCancelamento(imovel.getPoliticaDeCancelamento());
         entity.setStatus(imovel.getStatus());
-        return imovelRepository.save(entity);
+        return DataMapper.parseObject(imovelRepository.save(entity), ImovelCompletoDTO.class);
     }
 
     public void delete(Long id) {

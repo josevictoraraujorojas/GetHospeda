@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
+import br.gov.ifgoiano.gethospeda.dto.ReservaCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.ReservaResumoDTO;
 import br.gov.ifgoiano.gethospeda.model.Reserva;
 import br.gov.ifgoiano.gethospeda.service.ReservaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,22 +17,22 @@ public class ReservaController {
     private ReservaService reservaService;
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Reserva findById(@PathVariable long id) {
+    public ReservaCompletoDTO findById(@PathVariable long id) {
         return reservaService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Reserva> findAll() {
+    public List<ReservaResumoDTO> findAll() {
         return reservaService.findAll();
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Reserva add(@RequestBody Reserva reserva) {
+    public ReservaCompletoDTO add(@RequestBody ReservaCompletoDTO reserva) {
         return reservaService.save(reserva);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Reserva update(@RequestBody Reserva reserva) {
+    public ReservaCompletoDTO update(@RequestBody ReservaCompletoDTO reserva) {
         return reservaService.update(reserva);
     }
 
