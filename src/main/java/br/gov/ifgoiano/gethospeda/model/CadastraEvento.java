@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;
 

@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -16,7 +18,7 @@ public class Quarto implements Serializable {
     private boolean banheiroPrivativo;
     private double areaM2;
     private String descricao;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Imovel imovel;
     @OneToMany(mappedBy = "quarto")
     List<Reserva> reservas = new ArrayList<>();

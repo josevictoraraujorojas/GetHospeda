@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class Imovel {
     private float precoDiaria;
     private String politicaDeCancelamento;
     private String status;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Proprietario proprietario;
     @OneToMany(mappedBy = "imovel")
     List<Quarto> quartos = new ArrayList<>();

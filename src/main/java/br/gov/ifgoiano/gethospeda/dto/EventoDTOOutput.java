@@ -1,37 +1,27 @@
-package br.gov.ifgoiano.gethospeda.model;
+package br.gov.ifgoiano.gethospeda.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import br.gov.ifgoiano.gethospeda.model.Imovel;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-@Entity
-@Table(name = "evento")
-public class Evento implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+import java.util.Objects;
+
+public class EventoDTOOutput {
+    private Long id;
     private String nome;
     private String local;
     private String descricao;
     private Date dataInicio;
     private Date dataFim;
     private int capacidade;
-    @ManyToOne(fetch = FetchType.EAGER)
     private Imovel imovel;
-    @OneToMany(mappedBy = "evento")
-    List<CadastraEvento> cadastros;
 
-    public Evento() {
-    }
+    public EventoDTOOutput() {}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -89,5 +79,17 @@ public class Evento implements Serializable {
 
     public void setImovel(Imovel imovel) {
         this.imovel = imovel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        EventoDTOOutput that = (EventoDTOOutput) o;
+        return capacidade == that.capacidade && Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(local, that.local) && Objects.equals(descricao, that.descricao) && Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataFim, that.dataFim) && Objects.equals(imovel, that.imovel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, local, descricao, dataInicio, dataFim, capacidade, imovel);
     }
 }

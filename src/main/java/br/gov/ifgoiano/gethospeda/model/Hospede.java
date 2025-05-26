@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
@@ -12,10 +13,13 @@ public class Hospede extends Usuario{
     private Date DataNascimento;
     @OneToMany(mappedBy = "hospede")
     private List<Reserva> reservas;
+
     @OneToMany(mappedBy = "hospede")
     private List<AvaliacaoCliente> avaliacoes;
+
     @OneToMany(mappedBy = "hospede")
     private List<CadastraEvento> eventos;
+
     @OneToMany(mappedBy = "hospede")
     private List<SolicitaServico> servicos;
 

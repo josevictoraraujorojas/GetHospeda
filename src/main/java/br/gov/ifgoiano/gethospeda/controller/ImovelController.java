@@ -16,7 +16,7 @@ public class ImovelController {
     private ImovelService imovelService;
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Imovel findById(long id) {
+    public Imovel findById(@PathVariable long id) {
         return imovelService.findById(id);
     }
 

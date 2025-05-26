@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.util;
 
+import br.gov.ifgoiano.gethospeda.dto.EventoDTO;
+import br.gov.ifgoiano.gethospeda.model.Evento;
 import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
@@ -7,7 +9,7 @@ import java.util.List;
 
 public class DataMapper {
     // Podemos usar qualquer Mapper
-//private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
+    //private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
     private static ModelMapper mapper = new ModelMapper();
     // mapeamento genérica
     public static <O, D> D parseObject(O origin, Class<D> destination) {
@@ -22,4 +24,3 @@ public class DataMapper {
         return destinationObjects;
     }
 }
-

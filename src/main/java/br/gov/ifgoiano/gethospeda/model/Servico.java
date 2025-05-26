@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -14,10 +16,11 @@ public class Servico {
     private String descricao;
     private double preco;
     private boolean disponibilidade;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Imovel imovel;
     @OneToMany(mappedBy = "servico")
     private List<SolicitaServico> solicitacoes;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    private Imovel imovel;
 
     public Servico() {
     }
