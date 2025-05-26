@@ -49,7 +49,7 @@ public class EventoService {
         entity.setCapacidade(eventoDTO.getCapacidade());
 
         Imovel imovel = new Imovel();
-        imovel.setId(eventoDTO.getImovel());
+        imovel.setId(eventoDTO.getImovel().getId());
         entity.setImovel(imovel);
 
         var updated = repository.save(entity);

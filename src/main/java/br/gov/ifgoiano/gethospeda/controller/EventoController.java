@@ -62,8 +62,8 @@ public class EventoController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
     public ResponseEntity<EventoDTOOutput> buscarPorId(@PathVariable Long id) {
-        EventoDTOOutput usuario = service.findById(id);
-        return ResponseEntity.ok(DataMapper.parseObject(usuario, EventoDTOOutput.class));
+        EventoDTOOutput evento = service.findById(id);
+        return ResponseEntity.ok(DataMapper.parseObject(evento, EventoDTOOutput.class));
     }
 
     @PostMapping
