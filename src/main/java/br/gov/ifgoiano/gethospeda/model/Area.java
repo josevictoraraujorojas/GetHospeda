@@ -1,6 +1,5 @@
 package br.gov.ifgoiano.gethospeda.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -13,8 +12,7 @@ public class Area implements Serializable {
     private long id;
     private String tipo;
     private String descricao;
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
     private Imovel imovel;
     private String horarioDisponivel;
     private String regrasDeUso;
