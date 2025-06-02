@@ -1,23 +1,24 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-public class QuartoCompletoDTO {
-    private long id;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
+public class QuartoCreateDTO {
+    @NotBlank
     private String tipo;
+    @Min(1)
     private int quantidadeCamas;
+    @NotNull
     private boolean banheiroPrivativo;
+    @Min(1)
     private double areaM2;
+    @NotNull
     private ImovelResumoDTO imovel;
+    @NotBlank
     private String descricao;
 
-    public QuartoCompletoDTO() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public QuartoCreateDTO() {
     }
 
     public String getTipo() {
@@ -52,19 +53,19 @@ public class QuartoCompletoDTO {
         this.areaM2 = areaM2;
     }
 
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
     public ImovelResumoDTO getImovel() {
         return imovel;
     }
 
     public void setImovel(ImovelResumoDTO imovel) {
         this.imovel = imovel;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 }
