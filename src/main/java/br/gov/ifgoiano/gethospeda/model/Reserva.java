@@ -4,6 +4,8 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "reserva")
 public class Reserva {
@@ -21,6 +23,8 @@ public class Reserva {
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "quarto_id",referencedColumnName = "id")
     private Quarto quarto;
+    @OneToMany(mappedBy = "reserva")
+    private List<SolicitaServico> servicos;
 
     public Reserva() {
     }

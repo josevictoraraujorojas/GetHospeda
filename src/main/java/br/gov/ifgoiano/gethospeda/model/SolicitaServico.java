@@ -1,6 +1,5 @@
 package br.gov.ifgoiano.gethospeda.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -13,9 +12,9 @@ public class SolicitaServico implements Serializable {
     private SolicitaServicoId id;
 
     @ManyToOne
-    @MapsId("hospedeId")
-    @JoinColumn(name = "hospede_id")
-    private Hospede hospede;
+    @MapsId("reservaId")
+    @JoinColumn(name = "reserva_id")
+    private Reserva reserva;
 
     @ManyToOne
     @MapsId("servicoId")
@@ -36,12 +35,12 @@ public class SolicitaServico implements Serializable {
         this.id = id;
     }
 
-    public Hospede getHospede() {
-        return hospede;
+    public Reserva getReserva() {
+        return reserva;
     }
 
-    public void setHospede(Hospede hospede) {
-        this.hospede = hospede;
+    public void setReserva(Reserva reserva) {
+        this.reserva = reserva;
     }
 
     public Servico getServico() {

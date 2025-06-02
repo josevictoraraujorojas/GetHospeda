@@ -41,6 +41,4 @@ public class ImovelController {
     public void delete(@PathVariable long id) {
         imovelService.delete(id);
     }
-
-
 }
