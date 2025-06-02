@@ -1,6 +1,7 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
-import br.gov.ifgoiano.gethospeda.model.SolicitaServico;
+import br.gov.ifgoiano.gethospeda.dto.SolicitaServicoDTO;
+import br.gov.ifgoiano.gethospeda.dto.SolicitaServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.service.SolicitaServicoService;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,17 +17,22 @@ public class SolicitaServicoController {
     }
 
     @GetMapping
-    public List<SolicitaServico> listarTodos() {
+    public List<SolicitaServicoDTOOutput> listarTodos() {
         return service.findAll();
     }
 
     @PostMapping
-    public SolicitaServico solicitar(@RequestBody SolicitaServico solicitacao) {
+    public SolicitaServicoDTO solicitar(@RequestBody SolicitaServicoDTO solicitacao) {
         return service.save(solicitacao);
     }
 
+    @PutMapping
+    public SolicitaServicoDTO atualizar(@RequestBody SolicitaServicoDTO solicitacao) {
+        return service.update(solicitacao);
+    }
+
     @DeleteMapping
-    public void deletar(@RequestBody SolicitaServico solicitacao) {
+    public void deletar(@RequestBody SolicitaServicoDTO solicitacao) {
         service.delete(solicitacao);
     }
 }

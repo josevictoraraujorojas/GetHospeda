@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,7 +81,7 @@ public class ServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ServicoDTO salvar(@RequestBody ServicoDTO servicoDTO) {
+    public ServicoDTO salvar(@RequestBody @Valid ServicoDTO servicoDTO) {
         return service.save(servicoDTO);
     }
 
@@ -100,7 +101,7 @@ public class ServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ResponseEntity<ServicoDTO> atualizar(@PathVariable Long id, @RequestBody ServicoDTO servicoDTO) {
+    public ResponseEntity<ServicoDTO> atualizar(@PathVariable Long id, @RequestBody @Valid ServicoDTO servicoDTO) {
         try {
             servicoDTO.setId(id);
             return ResponseEntity.ok(service.update(servicoDTO));

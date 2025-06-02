@@ -1,13 +1,26 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.util.Objects;
 
 public class ServicoDTO {
     private long id;
+
+    @NotBlank(message = "O nome do serviço é obrigatório.")
     private String nome;
+
+    @NotBlank(message = "A descrição do serviço é obrigatória.")
     private String descricao;
+
+    @Positive(message = "O preço deve ser maior que zero.")
     private double preco;
+
     private boolean disponibilidade;
+
+    @NotNull(message = "O imóvel associado é obrigatório.")
     private ImovelResumoDTO imovel;
 
     public ServicoDTO() {
