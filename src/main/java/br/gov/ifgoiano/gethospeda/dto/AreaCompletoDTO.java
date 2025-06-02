@@ -1,23 +1,14 @@
-package br.gov.ifgoiano.gethospeda.model;
+package br.gov.ifgoiano.gethospeda.dto;
 
-import jakarta.persistence.*;
-
-import java.io.Serializable;
-
-@Entity
-@Table
-public class Area implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class AreaCompletoDTO {
     private long id;
     private String tipo;
     private String descricao;
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Imovel imovel;
+    private ImovelResumoDTO imovel;
     private String horarioDisponivel;
     private String regrasDeUso;
 
-    public Area() {
+    public AreaCompletoDTO() {
     }
 
     public long getId() {
@@ -44,11 +35,11 @@ public class Area implements Serializable {
         this.descricao = descricao;
     }
 
-    public Imovel getImovel() {
+    public ImovelResumoDTO getImovel() {
         return imovel;
     }
 
-    public void setImovel(Imovel imovel) {
+    public void setImovel(ImovelResumoDTO imovel) {
         this.imovel = imovel;
     }
 

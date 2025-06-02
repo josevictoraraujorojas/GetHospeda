@@ -1,32 +1,17 @@
-package br.gov.ifgoiano.gethospeda.model;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import jakarta.persistence.*;
+package br.gov.ifgoiano.gethospeda.dto;
 
 import java.util.Date;
-import java.util.List;
 
-@Entity
-@Table(name = "reserva")
-public class Reserva {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ReservaCompletoDTO {
     private Long id;
     private Date dataInicio;
     private Date dataFim;
     private Date reserva;
     private double valorTotal;
     private String status;
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
-    private Hospede hospede;
-    @ManyToOne
-    @PrimaryKeyJoinColumn(name = "quarto_id",referencedColumnName = "id")
-    private Quarto quarto;
-    @OneToMany(mappedBy = "reserva")
-    private List<SolicitaServico> servicos;
+    private QuartoResumoDTO quarto;
 
-    public Reserva() {
+    public ReservaCompletoDTO() {
     }
 
     public Long getId() {
@@ -77,19 +62,11 @@ public class Reserva {
         this.status = status;
     }
 
-    public Hospede getHospede() {
-        return hospede;
-    }
-
-    public void setHospede(Hospede hospede) {
-        this.hospede = hospede;
-    }
-
-    public Quarto getQuarto() {
+    public QuartoResumoDTO getQuarto() {
         return quarto;
     }
 
-    public void setQuarto(Quarto quarto) {
+    public void setQuarto(QuartoResumoDTO quarto) {
         this.quarto = quarto;
     }
 }

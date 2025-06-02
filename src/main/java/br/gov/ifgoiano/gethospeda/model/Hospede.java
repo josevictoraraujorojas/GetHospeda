@@ -12,17 +12,14 @@ public class Hospede extends Usuario{
     @Column(name = "data_nascimento")
     private Date DataNascimento;
     @OneToMany(mappedBy = "hospede")
-    @JsonManagedReference
     private List<Reserva> reservas;
+
     @OneToMany(mappedBy = "hospede")
-    @JsonManagedReference
     private List<AvaliacaoCliente> avaliacoes;
+
     @OneToMany(mappedBy = "hospede")
-    @JsonManagedReference
     private List<CadastraEvento> eventos;
-    @OneToMany(mappedBy = "hospede")
-    @JsonManagedReference
-    private List<SolicitaServico> servicos;
+
 
     public Hospede() {
     }
@@ -65,13 +62,5 @@ public class Hospede extends Usuario{
 
     public void setEventos(List<CadastraEvento> eventos) {
         this.eventos = eventos;
-    }
-
-    public List<SolicitaServico> getServicos() {
-        return servicos;
-    }
-
-    public void setServicos(List<SolicitaServico> servicos) {
-        this.servicos = servicos;
     }
 }

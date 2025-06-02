@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
+import br.gov.ifgoiano.gethospeda.dto.QuartoCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.QuartoResumoDTO;
 import br.gov.ifgoiano.gethospeda.model.Quarto;
 import br.gov.ifgoiano.gethospeda.service.QuartoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,17 +18,17 @@ public class QuartoController {
     private QuartoService quartoService;
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Quarto findById(@PathVariable long id) {
+    public QuartoCompletoDTO findById(@PathVariable long id) {
         return quartoService.findById(id);
     }
 
     @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Quarto create(@RequestBody Quarto quarto) {
+    public QuartoCompletoDTO create(@RequestBody QuartoCompletoDTO quarto) {
         return quartoService.save(quarto);
     }
 
     @PutMapping(produces = MediaType.APPLICATION_JSON_VALUE,consumes = MediaType.APPLICATION_JSON_VALUE)
-    public Quarto update(@RequestBody Quarto quarto) {
+    public QuartoCompletoDTO update(@RequestBody QuartoCompletoDTO quarto) {
         return quartoService.update(quarto);
     }
 
@@ -36,7 +38,7 @@ public class QuartoController {
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Quarto> findAll(){
+    public List<QuartoResumoDTO> findAll(){
         return quartoService.findAll();
     }
 

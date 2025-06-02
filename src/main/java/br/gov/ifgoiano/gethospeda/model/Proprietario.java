@@ -13,7 +13,6 @@ import java.util.List;
 public class Proprietario extends Usuario{
     private String cnpj;
     @OneToMany(mappedBy = "proprietario")
-    @JsonManagedReference
     private List<Imovel> imoveleis;
 
     public Proprietario() {

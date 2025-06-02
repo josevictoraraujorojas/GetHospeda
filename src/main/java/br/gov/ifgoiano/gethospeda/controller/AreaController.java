@@ -1,7 +1,7 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
-import br.gov.ifgoiano.gethospeda.model.Area;
-import br.gov.ifgoiano.gethospeda.model.Imovel;
+import br.gov.ifgoiano.gethospeda.dto.AreaCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.AreaResumoDTO;
 import br.gov.ifgoiano.gethospeda.service.AreaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -16,22 +16,22 @@ public class AreaController {
     private AreaService areaService;
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    public Area findById(@PathVariable long id) {
+    public AreaCompletoDTO findById(@PathVariable long id) {
         return areaService.findById(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Area> findAll() {
+    public List<AreaResumoDTO> findAll() {
         return areaService.findAll();
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE,produces = MediaType.APPLICATION_JSON_VALUE)
-    public Area save(@RequestBody Area area) {
+    public AreaCompletoDTO save(@RequestBody AreaCompletoDTO area) {
         return areaService.save(area);
     }
 
     @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public Area update(@RequestBody Area area) {
+    public AreaCompletoDTO update(@RequestBody AreaCompletoDTO area) {
         return areaService.update(area);
     }
 

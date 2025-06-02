@@ -1,29 +1,17 @@
-package br.gov.ifgoiano.gethospeda.model;
+package br.gov.ifgoiano.gethospeda.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import br.gov.ifgoiano.gethospeda.model.Imovel;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
-@Entity
-@Table(name = "quarto")
-public class Quarto implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class QuartoCompletoDTO {
     private long id;
     private String tipo;
     private int quantidadeCamas;
     private boolean banheiroPrivativo;
     private double areaM2;
+    private ImovelResumoDTO imovel;
     private String descricao;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Imovel imovel;
-    @OneToMany(mappedBy = "quarto")
-    List<Reserva> reservas = new ArrayList<>();
 
-    public Quarto() {
+    public QuartoCompletoDTO() {
     }
 
     public long getId() {
@@ -72,13 +60,5 @@ public class Quarto implements Serializable {
 
     public void setDescricao(String descricao) {
         this.descricao = descricao;
-    }
-
-    public Imovel getImovel() {
-        return imovel;
-    }
-
-    public void setImovel(Imovel imovel) {
-        this.imovel = imovel;
     }
 }

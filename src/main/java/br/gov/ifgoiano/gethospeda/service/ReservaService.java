@@ -1,9 +1,11 @@
 package br.gov.ifgoiano.gethospeda.service;
 
+import br.gov.ifgoiano.gethospeda.dto.ReservaCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.ReservaResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
-import br.gov.ifgoiano.gethospeda.model.Imovel;
 import br.gov.ifgoiano.gethospeda.model.Reserva;
 import br.gov.ifgoiano.gethospeda.repository.ReservaRepository;
+import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,30 +18,33 @@ public class ReservaService {
     private ReservaRepository reservaRepository;
     private Logger logger = Logger.getLogger(ReservaService.class.getName());
 
-    public List<Reserva> findAll() {
+    public List<ReservaResumoDTO> findAll() {
         logger.info("Findall");
-        return reservaRepository.findAll();
+        List<Reserva> reservas = reservaRepository.findAll();
+        return DataMapper.parseListObjects(reservas, ReservaResumoDTO.class);
     }
 
-    public Reserva findById(Long id) {
+    public ReservaCompletoDTO findById(Long id) {
         logger.info("FindById");
-        return reservaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this ID"));
+        Reserva reserva = reservaRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this ID"));
+        return DataMapper.parseObject(reserva, ReservaCompletoDTO.class);
     }
 
-    public Reserva save(Reserva reserva) {
+    public ReservaCompletoDTO save(ReservaCompletoDTO reserva) {
         logger.info("Save");
-        return reservaRepository.save(reserva);
+        Reserva reservaNova = reservaRepository.save(DataMapper.parseObject(reserva, Reserva.class));
+        return DataMapper.parseObject(reservaNova, ReservaCompletoDTO.class);
     }
-    public Reserva update(Reserva reserva) {
+    public ReservaCompletoDTO update(ReservaCompletoDTO reserva) {
         logger.info("Update");
-        Reserva newReserva = reservaRepository.save(reserva);
+        Reserva newReserva = reservaRepository.findById(reserva.getId()).orElseThrow(()-> new ResourceNotFoundException("No records found for this ID"));
         newReserva.setDataInicio(reserva.getDataInicio());
         newReserva.setDataFim(reserva.getDataFim());
         newReserva.setReserva(reserva.getReserva());
         newReserva.setValorTotal(reserva.getValorTotal());
         newReserva.setStatus(reserva.getStatus());
 
-        return save(newReserva);
+        return DataMapper.parseObject(reservaRepository.save(newReserva), ReservaCompletoDTO.class);
     }
     public void delete(Long id) {
         logger.info("Delete");

@@ -1,37 +1,27 @@
-package br.gov.ifgoiano.gethospeda.model;
+package br.gov.ifgoiano.gethospeda.dto;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.persistence.*;
+import br.gov.ifgoiano.gethospeda.model.Imovel;
 
-import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
-@Entity
-@Table(name = "evento")
-public class Evento implements Serializable {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+import java.util.Objects;
+
+public class EventoDTO {
+    private Long id;
     private String nome;
     private String local;
     private String descricao;
     private Date dataInicio;
     private Date dataFim;
     private int capacidade;
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Imovel imovel;
-    @OneToMany(mappedBy = "evento")
-    List<CadastraEvento> cadastros;
+    private long imovel;
 
-    public Evento() {
-    }
+    public EventoDTO() {}
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -83,11 +73,23 @@ public class Evento implements Serializable {
         this.capacidade = capacidade;
     }
 
-    public Imovel getImovel() {
+    public long getImovel() {
         return imovel;
     }
 
-    public void setImovel(Imovel imovel) {
+    public void setImovel(long imovel) {
         this.imovel = imovel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        EventoDTO eventoDTO = (EventoDTO) o;
+        return capacidade == eventoDTO.capacidade && Objects.equals(id, eventoDTO.id) && Objects.equals(nome, eventoDTO.nome) && Objects.equals(local, eventoDTO.local) && Objects.equals(descricao, eventoDTO.descricao) && Objects.equals(dataInicio, eventoDTO.dataInicio) && Objects.equals(dataFim, eventoDTO.dataFim) && Objects.equals(imovel, eventoDTO.imovel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, local, descricao, dataInicio, dataFim, capacidade, imovel);
     }
 }
