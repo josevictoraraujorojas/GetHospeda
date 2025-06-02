@@ -121,9 +121,9 @@ CREATE TABLE servico
 CREATE TABLE solicita_servico
 (
     data_solicitacao datetime NULL,
-    hospede_id       BIGINT   NOT NULL,
+    reserva_id       BIGINT   NOT NULL,
     servico_id       BIGINT   NOT NULL,
-    CONSTRAINT pk_solicitaservico PRIMARY KEY (hospede_id, servico_id)
+    CONSTRAINT pk_solicitaservico PRIMARY KEY (reserva_id, servico_id)
 );
 
 CREATE TABLE usuario
@@ -191,7 +191,7 @@ ALTER TABLE servico
     ADD CONSTRAINT FK_SERVICO_ON_IMOVEL FOREIGN KEY (imovel_id) REFERENCES imovel (id);
 
 ALTER TABLE solicita_servico
-    ADD CONSTRAINT FK_SOLICITASERVICO_ON_HOSPEDE FOREIGN KEY (hospede_id) REFERENCES usuario (id);
+    ADD CONSTRAINT FK_SOLICITASERVICO_ON_RESERVA FOREIGN KEY (reserva_id) REFERENCES reserva (id);
 
 ALTER TABLE solicita_servico
     ADD CONSTRAINT FK_SOLICITASERVICO_ON_SERVICO FOREIGN KEY (servico_id) REFERENCES servico (id);

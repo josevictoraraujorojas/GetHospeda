@@ -1,8 +1,12 @@
 package br.gov.ifgoiano.gethospeda.service;
 
+import br.gov.ifgoiano.gethospeda.dto.AreaCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.AreaResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Area;
 import br.gov.ifgoiano.gethospeda.repository.AreaRepository;
+import br.gov.ifgoiano.gethospeda.util.DataMapper;
+import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,22 +19,27 @@ public class AreaService {
     AreaRepository areaRepository;
     Logger logger = Logger.getLogger(AreaService.class.getName());
 
-    public List<Area> findAll() {
+    public List<AreaResumoDTO> findAll() {
         logger.info("findAll");
-        return areaRepository.findAll();
+        List<Area> area = (List<Area>) areaRepository.findAll();
+        return DataMapper.parseListObjects(area,AreaResumoDTO.class);
     }
 
-    public Area findById(Long id) {
+    public AreaCompletoDTO findById(Long id) {
         logger.info("findById");
-        return areaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        Area area = areaRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        return DataMapper.parseObject(area,AreaCompletoDTO.class);
     }
 
-    public Area save(Area area) {
+    public AreaCompletoDTO save(AreaCompletoDTO area) {
         logger.info("save");
-        return areaRepository.save(area);
+        Area areaNova = DataMapper.parseObject(area,Area.class);
+        areaNova = areaRepository.save(areaNova);
+        AreaCompletoDTO areaCompletoDTO = DataMapper.parseObject(areaNova,AreaCompletoDTO.class);
+        return areaCompletoDTO;
     }
 
-    public Area update(Area area) {
+    public AreaCompletoDTO update(AreaCompletoDTO area) {
         logger.info("update");
         Area newArea = areaRepository.findById(area.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
@@ -38,7 +47,8 @@ public class AreaService {
         newArea.setDescricao(area.getDescricao());
         newArea.setHorarioDisponivel(area.getHorarioDisponivel());
         newArea.setRegrasDeUso(area.getRegrasDeUso());
-        return areaRepository.save(newArea);
+        areaRepository.save(newArea);
+        return DataMapper.parseObject(newArea,AreaCompletoDTO.class);
     }
 
     public void deleteById(Long id) {

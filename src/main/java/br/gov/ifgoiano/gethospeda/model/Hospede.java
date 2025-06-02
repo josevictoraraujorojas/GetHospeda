@@ -20,8 +20,6 @@ public class Hospede extends Usuario{
     @OneToMany(mappedBy = "hospede")
     private List<CadastraEvento> eventos;
 
-    @OneToMany(mappedBy = "hospede")
-    private List<SolicitaServico> servicos;
 
     public Hospede() {
     }
@@ -64,13 +62,5 @@ public class Hospede extends Usuario{
 
     public void setEventos(List<CadastraEvento> eventos) {
         this.eventos = eventos;
-    }
-
-    public List<SolicitaServico> getServicos() {
-        return servicos;
-    }
-
-    public void setServicos(List<SolicitaServico> servicos) {
-        this.servicos = servicos;
     }
 }
