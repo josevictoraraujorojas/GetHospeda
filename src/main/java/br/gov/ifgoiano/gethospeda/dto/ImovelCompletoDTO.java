@@ -16,6 +16,8 @@ public class ImovelCompletoDTO implements Serializable {
     private String status;
     private List<QuartoResumoDTO> quartos;
     private List<AreaResumoDTO> areas;
+    private List<ServicoResumoDTO> servicos;
+    private List<EventoResumoDTO> eventos;
 
     public ImovelCompletoDTO() {
     }
@@ -106,5 +108,29 @@ public class ImovelCompletoDTO implements Serializable {
 
     public void setQuartos(List<QuartoResumoDTO> quartos) {
         this.quartos = quartos;
+    }
+
+    public List<AreaResumoDTO> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<AreaResumoDTO> areas) {
+        this.areas = areas;
+    }
+
+    public List<ServicoResumoDTO> getServicos() {
+        return servicos;
+    }
+
+    public void setServicos(List<ServicoResumoDTO> servicos) {
+        this.servicos = servicos;
+    }
+
+    public List<EventoResumoDTO> getEventos() {
+        return eventos;
+    }
+
+    public void setEventos(List<EventoResumoDTO> eventos) {
+        this.eventos = eventos;
     }
 }
