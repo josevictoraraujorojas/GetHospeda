@@ -1,6 +1,7 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ImovelCompletoDTO implements Serializable {
     private long id;
@@ -13,6 +14,8 @@ public class ImovelCompletoDTO implements Serializable {
     private float precoDiaria;
     private String politicaDeCancelamento;
     private String status;
+    private List<QuartoResumoDTO> quartos;
+    private List<AreaResumoDTO> areas;
 
     public ImovelCompletoDTO() {
     }
@@ -95,5 +98,13 @@ public class ImovelCompletoDTO implements Serializable {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public List<QuartoResumoDTO> getQuartos() {
+        return quartos;
+    }
+
+    public void setQuartos(List<QuartoResumoDTO> quartos) {
+        this.quartos = quartos;
     }
 }

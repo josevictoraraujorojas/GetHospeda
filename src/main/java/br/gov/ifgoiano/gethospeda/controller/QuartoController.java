@@ -3,7 +3,6 @@ package br.gov.ifgoiano.gethospeda.controller;
 import br.gov.ifgoiano.gethospeda.dto.QuartoCompletoDTO;
 import br.gov.ifgoiano.gethospeda.dto.QuartoCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.QuartoResumoDTO;
-import br.gov.ifgoiano.gethospeda.model.Quarto;
 import br.gov.ifgoiano.gethospeda.service.QuartoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -26,7 +25,7 @@ public class QuartoController {
     private QuartoService quartoService;
 
     @GetMapping(value = "/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
-    @Operation(summary = "Buscar uma pessoa", description = "Buscar uma pesso pelo id",
+    @Operation(summary = "Buscar um Quarto", description = "Buscar um Quarto pelo id",
             tags = {"Quarto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
@@ -96,7 +95,7 @@ public class QuartoController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @Operation(summary = "Buscar todos os Quartos", description = "Buscar todos os Quartos",
-            tags = {"People"},
+            tags = {"Quarto"},
             responses = {
                     @ApiResponse(description = "Success", responseCode = "200",
                             content = {
