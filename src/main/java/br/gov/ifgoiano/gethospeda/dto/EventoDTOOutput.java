@@ -1,27 +1,25 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-import br.gov.ifgoiano.gethospeda.model.Imovel;
-
 import java.util.Date;
 import java.util.Objects;
 
 public class EventoDTOOutput {
-    private Long id;
+    private long id;
     private String nome;
     private String local;
     private String descricao;
     private Date dataInicio;
     private Date dataFim;
     private int capacidade;
-    private Imovel imovel;
+    private ImovelResumoDTO imovel;
 
     public EventoDTOOutput() {}
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -73,11 +71,11 @@ public class EventoDTOOutput {
         this.capacidade = capacidade;
     }
 
-    public Imovel getImovel() {
+    public ImovelResumoDTO getImovel() {
         return imovel;
     }
 
-    public void setImovel(Imovel imovel) {
+    public void setImovel(ImovelResumoDTO imovel) {
         this.imovel = imovel;
     }
 
@@ -85,7 +83,7 @@ public class EventoDTOOutput {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         EventoDTOOutput that = (EventoDTOOutput) o;
-        return capacidade == that.capacidade && Objects.equals(id, that.id) && Objects.equals(nome, that.nome) && Objects.equals(local, that.local) && Objects.equals(descricao, that.descricao) && Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataFim, that.dataFim) && Objects.equals(imovel, that.imovel);
+        return id == that.id && capacidade == that.capacidade && Objects.equals(nome, that.nome) && Objects.equals(local, that.local) && Objects.equals(descricao, that.descricao) && Objects.equals(dataInicio, that.dataInicio) && Objects.equals(dataFim, that.dataFim) && Objects.equals(imovel, that.imovel);
     }
 
     @Override

@@ -1,27 +1,42 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-import br.gov.ifgoiano.gethospeda.model.Imovel;
+import jakarta.validation.constraints.*;
 
 import java.util.Date;
 import java.util.Objects;
 
 public class EventoDTO {
-    private Long id;
+    private long id;
+    @NotBlank(message = "O nome do evento é obrigatório.")
     private String nome;
+
+    @NotBlank(message = "O local do evento é obrigatório.")
     private String local;
+
+    @NotBlank(message = "A descrição do evento é obrigatória.")
     private String descricao;
+
+    @NotNull(message = "A data de início é obrigatória.")
+    @FutureOrPresent(message = "A data de início deve ser no presente ou no futuro.")
     private Date dataInicio;
+
+    @NotNull(message = "A data de fim é obrigatória.")
+    @Future(message = "A data de fim deve ser no futuro.")
     private Date dataFim;
+
+    @Min(value = 1, message = "A capacidade mínima do evento deve ser de pelo menos 1.")
     private int capacidade;
-    private long imovel;
+
+    @NotNull(message = "O imóvel associado é obrigatório.")
+    private ImovelResumoDTO imovel;
 
     public EventoDTO() {}
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -73,11 +88,11 @@ public class EventoDTO {
         this.capacidade = capacidade;
     }
 
-    public long getImovel() {
+    public ImovelResumoDTO getImovel() {
         return imovel;
     }
 
-    public void setImovel(long imovel) {
+    public void setImovel(ImovelResumoDTO imovel) {
         this.imovel = imovel;
     }
 
@@ -85,7 +100,7 @@ public class EventoDTO {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         EventoDTO eventoDTO = (EventoDTO) o;
-        return capacidade == eventoDTO.capacidade && Objects.equals(id, eventoDTO.id) && Objects.equals(nome, eventoDTO.nome) && Objects.equals(local, eventoDTO.local) && Objects.equals(descricao, eventoDTO.descricao) && Objects.equals(dataInicio, eventoDTO.dataInicio) && Objects.equals(dataFim, eventoDTO.dataFim) && Objects.equals(imovel, eventoDTO.imovel);
+        return id == eventoDTO.id && capacidade == eventoDTO.capacidade && Objects.equals(nome, eventoDTO.nome) && Objects.equals(local, eventoDTO.local) && Objects.equals(descricao, eventoDTO.descricao) && Objects.equals(dataInicio, eventoDTO.dataInicio) && Objects.equals(dataFim, eventoDTO.dataFim) && Objects.equals(imovel, eventoDTO.imovel);
     }
 
     @Override

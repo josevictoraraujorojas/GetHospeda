@@ -1,7 +1,6 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
 import br.gov.ifgoiano.gethospeda.model.CadastraEvento;
-import br.gov.ifgoiano.gethospeda.model.Evento;
 import br.gov.ifgoiano.gethospeda.service.CadastraEventoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;

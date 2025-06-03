@@ -1,13 +1,17 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
-import br.gov.ifgoiano.gethospeda.model.CadastraEvento;
+import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
+import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
+import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Servico;
 import br.gov.ifgoiano.gethospeda.service.ServicoService;
+import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -36,7 +40,7 @@ public class ServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public List<Servico> listarTodos() {
+    public List<ServicoDTOOutput> listarTodos() {
         return service.findAll();
     }
 
@@ -56,8 +60,9 @@ public class ServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ResponseEntity<Servico> buscarPorId(@PathVariable Long id) {
-        return service.findById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<ServicoDTOOutput> buscarPorId(@PathVariable Long id) {
+        ServicoDTOOutput servico = service.findById(id);
+        return ResponseEntity.ok(DataMapper.parseObject(servico, ServicoDTOOutput.class));
     }
 
     @PostMapping
@@ -76,8 +81,8 @@ public class ServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public Servico salvar(@RequestBody Servico servico) {
-        return service.save(servico);
+    public ServicoDTO salvar(@RequestBody @Valid ServicoDTO servicoDTO) {
+        return service.save(servicoDTO);
     }
 
     @PutMapping("/{id}")
@@ -96,10 +101,13 @@ public class ServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ResponseEntity<Servico> atualizar(@PathVariable Long id, @RequestBody Servico servico) {
-        if (!service.findById(id).isPresent()) return ResponseEntity.notFound().build();
-        servico.setId(id);
-        return ResponseEntity.ok(service.save(servico));
+    public ResponseEntity<ServicoDTO> atualizar(@PathVariable Long id, @RequestBody @Valid ServicoDTO servicoDTO) {
+        try {
+            servicoDTO.setId(id);
+            return ResponseEntity.ok(service.update(servicoDTO));
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @DeleteMapping("/{id}")
@@ -119,8 +127,11 @@ public class ServicoController {
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        if (!service.findById(id).isPresent()) return ResponseEntity.notFound().build();
-        service.delete(id);
-        return ResponseEntity.noContent().build();
+        try {
+            service.delete(id); // delete já lança a exceção se não existir
+            return ResponseEntity.noContent().build();
+        } catch (ResourceNotFoundException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

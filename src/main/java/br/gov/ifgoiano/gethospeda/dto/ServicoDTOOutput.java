@@ -1,26 +1,16 @@
-package br.gov.ifgoiano.gethospeda.model;
+package br.gov.ifgoiano.gethospeda.dto;
 
-import jakarta.persistence.*;
+import java.util.Objects;
 
-import java.util.List;
-
-@Entity
-@Table(name = "servico")
-public class Servico {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ServicoDTOOutput {
     private long id;
     private String nome;
     private String descricao;
     private double preco;
     private boolean disponibilidade;
-    @OneToMany(mappedBy = "servico")
-    private List<SolicitaServico> solicitacoes;
+    private ImovelResumoDTO imovel;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    private Imovel imovel;
-
-    public Servico() {
+    public ServicoDTOOutput() {
     }
 
     public long getId() {
@@ -63,11 +53,23 @@ public class Servico {
         this.disponibilidade = disponibilidade;
     }
 
-    public Imovel getImovel() {
+    public ImovelResumoDTO getImovel() {
         return imovel;
     }
 
-    public void setImovel(Imovel imovel) {
+    public void setImovel(ImovelResumoDTO imovel) {
         this.imovel = imovel;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        ServicoDTOOutput that = (ServicoDTOOutput) o;
+        return id == that.id && Double.compare(preco, that.preco) == 0 && disponibilidade == that.disponibilidade && Objects.equals(nome, that.nome) && Objects.equals(descricao, that.descricao) && Objects.equals(imovel, that.imovel);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, nome, descricao, preco, disponibilidade, imovel);
     }
 }

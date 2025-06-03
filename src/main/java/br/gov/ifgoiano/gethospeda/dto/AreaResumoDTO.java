@@ -8,6 +8,14 @@ public class AreaResumoDTO {
     public AreaResumoDTO() {
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public String getTipo() {
         return tipo;
     }
@@ -24,11 +32,4 @@ public class AreaResumoDTO {
         this.descricao = descricao;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }
