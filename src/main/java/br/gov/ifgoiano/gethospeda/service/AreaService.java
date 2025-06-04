@@ -1,6 +1,7 @@
 package br.gov.ifgoiano.gethospeda.service;
 
 import br.gov.ifgoiano.gethospeda.dto.AreaCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.AreaCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.AreaResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Area;
@@ -31,7 +32,7 @@ public class AreaService {
         return DataMapper.parseObject(area,AreaCompletoDTO.class);
     }
 
-    public AreaCompletoDTO save(AreaCompletoDTO area) {
+    public AreaCompletoDTO save(AreaCreateDTO area) {
         logger.info("save");
         Area areaNova = DataMapper.parseObject(area,Area.class);
         areaNova = areaRepository.save(areaNova);

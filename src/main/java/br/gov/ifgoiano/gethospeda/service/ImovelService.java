@@ -1,6 +1,7 @@
 package br.gov.ifgoiano.gethospeda.service;
 
 import br.gov.ifgoiano.gethospeda.dto.ImovelCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.ImovelCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.ImovelResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Imovel;
@@ -30,7 +31,7 @@ public class ImovelService {
         return DataMapper.parseObject(imovel, ImovelCompletoDTO.class);
     }
 
-    public ImovelCompletoDTO save(ImovelCompletoDTO imovel) {
+    public ImovelCompletoDTO save(ImovelCreateDTO imovel) {
         logger.info("save");
         return DataMapper.parseObject(imovelRepository.save(DataMapper.parseObject(imovel,Imovel.class)),ImovelCompletoDTO.class);
     }

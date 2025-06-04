@@ -1,33 +1,29 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-import java.io.Serializable;
-import java.util.List;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-public class ImovelCompletoDTO implements Serializable {
-    private long id;
+public class ImovelCreateDTO {
+    @NotBlank
     private String titulo;
+    @NotBlank
     private String descricao;
+    @NotBlank
     private String endereco;
+    @NotBlank
     private String cidade;
+    @NotBlank
     private String estado;
+    @Pattern(regexp = "^\\d{8}$\n")
     private String cep;
+    @Min(1)
     private float precoDiaria;
+    @NotBlank
     private String politicaDeCancelamento;
-    private String status;
-    private List<QuartoResumoDTO> quartos;
-    private List<AreaResumoDTO> areas;
-    private List<ServicoResumoDTO> servicos;
-    private List<EventoResumoDTO> eventos;
 
-    public ImovelCompletoDTO() {
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
+    public ImovelCreateDTO() {
     }
 
     public String getTitulo() {
@@ -92,45 +88,5 @@ public class ImovelCompletoDTO implements Serializable {
 
     public void setPoliticaDeCancelamento(String politicaDeCancelamento) {
         this.politicaDeCancelamento = politicaDeCancelamento;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public List<QuartoResumoDTO> getQuartos() {
-        return quartos;
-    }
-
-    public void setQuartos(List<QuartoResumoDTO> quartos) {
-        this.quartos = quartos;
-    }
-
-    public List<AreaResumoDTO> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(List<AreaResumoDTO> areas) {
-        this.areas = areas;
-    }
-
-    public List<ServicoResumoDTO> getServicos() {
-        return servicos;
-    }
-
-    public void setServicos(List<ServicoResumoDTO> servicos) {
-        this.servicos = servicos;
-    }
-
-    public List<EventoResumoDTO> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(List<EventoResumoDTO> eventos) {
-        this.eventos = eventos;
     }
 }

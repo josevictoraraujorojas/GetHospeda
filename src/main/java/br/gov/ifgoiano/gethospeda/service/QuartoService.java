@@ -1,6 +1,7 @@
 package br.gov.ifgoiano.gethospeda.service;
 
 import br.gov.ifgoiano.gethospeda.dto.QuartoCompletoDTO;
+import br.gov.ifgoiano.gethospeda.dto.QuartoCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.QuartoResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Quarto;
@@ -31,7 +32,7 @@ public class QuartoService {
         return DataMapper.parseObject(quarto, QuartoCompletoDTO.class);
     }
 
-    public QuartoCompletoDTO save(QuartoCompletoDTO quarto) {
+    public QuartoCompletoDTO save(QuartoCreateDTO quarto) {
         logger.info("save");
         return DataMapper.parseObject(quartoRepository.save(DataMapper.parseObject(quarto,Quarto.class)),QuartoCompletoDTO.class);
     }
