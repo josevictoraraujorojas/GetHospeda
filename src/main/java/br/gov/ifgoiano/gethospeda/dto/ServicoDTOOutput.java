@@ -1,13 +1,19 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.RepresentationModel;
+
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ServicoDTOOutput {
+public class ServicoDTOOutput extends RepresentationModel<ServicoDTOOutput> implements Serializable {
+
     private long id;
     private String nome;
     private String descricao;
     private double preco;
     private boolean disponibilidade;
+    @JsonIgnore
     private ImovelResumoDTO imovel;
 
     public ServicoDTOOutput() {

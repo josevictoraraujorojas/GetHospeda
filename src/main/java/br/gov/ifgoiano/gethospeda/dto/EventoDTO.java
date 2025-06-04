@@ -1,11 +1,14 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
 import jakarta.validation.constraints.*;
+import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class EventoDTO {
+public class EventoDTO extends RepresentationModel<EventoDTO> implements Serializable {
+
     private long id;
     @NotBlank(message = "O nome do evento é obrigatório.")
     private String nome;

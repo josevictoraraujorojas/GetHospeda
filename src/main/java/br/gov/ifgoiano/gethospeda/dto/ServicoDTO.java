@@ -3,10 +3,12 @@ package br.gov.ifgoiano.gethospeda.dto;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class ServicoDTO {
+public class ServicoDTO extends RepresentationModel<ServicoDTO> implements Serializable {
     private long id;
 
     @NotBlank(message = "O nome do serviço é obrigatório.")

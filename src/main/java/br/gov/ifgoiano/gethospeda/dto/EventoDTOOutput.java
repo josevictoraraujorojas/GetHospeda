@@ -1,9 +1,13 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Date;
 import java.util.Objects;
 
-public class EventoDTOOutput {
+public class EventoDTOOutput extends RepresentationModel<EventoDTOOutput> {
+
     private long id;
     private String nome;
     private String local;
@@ -11,6 +15,7 @@ public class EventoDTOOutput {
     private Date dataInicio;
     private Date dataFim;
     private int capacidade;
+    @JsonIgnore
     private ImovelResumoDTO imovel;
 
     public EventoDTOOutput() {}

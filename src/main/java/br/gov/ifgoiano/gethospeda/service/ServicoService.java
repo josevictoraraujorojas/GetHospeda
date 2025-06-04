@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.service;
 
+import br.gov.ifgoiano.gethospeda.controller.ImovelController;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
@@ -11,28 +12,41 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @Service
 public class ServicoService {
     @Autowired
     private ServicoRepository repository;
 
     public List<ServicoDTOOutput> findAll() {
-        var eventos = repository.findAll();
-        return DataMapper.parseListObjects(eventos, ServicoDTOOutput.class);
+        var servicos = repository.findAll();
+        var servicosDto = DataMapper.parseListObjects(servicos, ServicoDTOOutput.class);
+        servicosDto
+                .stream()
+                .forEach(p ->
+                        p.add(linkTo(methodOn(ImovelController.class).findById(p.getImovel().getId())).withSelfRel()));
+        return servicosDto;
     }
 
     public ServicoDTOOutput findById(Long id) {
         var servicoEntity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         // Aqui garantimos que o objeto é Evento para o ModelMapper
-        return DataMapper.parseObject(servicoEntity, ServicoDTOOutput.class);
+        ServicoDTOOutput vo = DataMapper.parseObject(servicoEntity, ServicoDTOOutput.class);
+        vo.add(linkTo(methodOn(ImovelController.class).findById(servicoEntity.getImovel().getId())).withSelfRel());
+        return vo;
     }
 
     public ServicoDTO save(ServicoDTO servicoDTO) {
         var servicoEntity = DataMapper.parseObject(servicoDTO, br.gov.ifgoiano.gethospeda.model.Servico.class);
 
         var servicoSaved = repository.save(servicoEntity);
-        return DataMapper.parseObject(servicoSaved, ServicoDTO.class);
+        var vo = DataMapper.parseObject(servicoSaved, ServicoDTO.class);
+
+        vo.add(linkTo(methodOn(ImovelController.class).findById(vo.getImovel().getId())).withSelfRel());
+        return vo;
     }
 
     public ServicoDTO update(ServicoDTO servicoDTO) {
@@ -50,7 +64,9 @@ public class ServicoService {
         entity.setImovel(imovel);
 
         var updated = repository.save(entity);
-        return DataMapper.parseObject(updated, ServicoDTO.class);
+        var vo = DataMapper.parseObject(entity, ServicoDTO.class);
+        vo.add(linkTo(methodOn(ImovelController.class).findById(vo.getImovel().getId())).withSelfRel());
+        return vo;
     }
 
     public void delete(Long id) {
