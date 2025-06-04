@@ -2,11 +2,13 @@ package br.gov.ifgoiano.gethospeda.dto;
 
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PastOrPresent;
+import org.springframework.hateoas.RepresentationModel;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class SolicitaServicoDTO {
+public class SolicitaServicoDTO extends RepresentationModel<SolicitaServicoDTO> implements Serializable {
 
     @NotNull(message = "O ID da reserva é obrigatório.")
     private Long reservaId;

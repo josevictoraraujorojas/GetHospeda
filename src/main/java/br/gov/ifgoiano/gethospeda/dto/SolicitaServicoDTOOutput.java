@@ -1,9 +1,12 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
-public class SolicitaServicoDTOOutput {
+public class SolicitaServicoDTOOutput extends RepresentationModel<SolicitaServicoDTOOutput> implements Serializable {
 
     private Long reservaId;
 

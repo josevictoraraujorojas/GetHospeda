@@ -11,6 +11,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,6 +42,12 @@ public class SolicitaServicoController {
             })
     public List<SolicitaServicoDTOOutput> listarTodos() {
         return service.findAll();
+    }
+
+    @GetMapping("/{reservaId}/{servicoId}")
+    public ResponseEntity<SolicitaServicoDTOOutput> findById(@PathVariable Long reservaId, @PathVariable Long servicoId) {
+        var dto = service.findById(reservaId, servicoId);
+        return ResponseEntity.ok(dto);
     }
 
     @PostMapping
