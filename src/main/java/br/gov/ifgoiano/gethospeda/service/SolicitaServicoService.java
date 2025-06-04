@@ -1,14 +1,10 @@
 package br.gov.ifgoiano.gethospeda.service;
 
-import br.gov.ifgoiano.gethospeda.controller.ImovelController;
 import br.gov.ifgoiano.gethospeda.controller.ReservaController;
 import br.gov.ifgoiano.gethospeda.controller.ServicoController;
-import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
-import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.dto.SolicitaServicoDTO;
 import br.gov.ifgoiano.gethospeda.dto.SolicitaServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
-import br.gov.ifgoiano.gethospeda.model.Servico;
 import br.gov.ifgoiano.gethospeda.model.SolicitaServico;
 import br.gov.ifgoiano.gethospeda.model.SolicitaServicoId;
 import br.gov.ifgoiano.gethospeda.repository.SolicitaServicoRepository;
