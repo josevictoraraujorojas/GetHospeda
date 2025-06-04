@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,11 +15,11 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/cadastros-eventos")
+@Tag(name = "CadastraEvento",description = "Endpoints sobre o cadastro em eventos")
 public class CadastraEventoController {
 
     @Autowired
     private CadastraEventoService service;
-
 
     @GetMapping
     @Operation(summary = "Mostrar todos os cadastros nos eventos", description = "Mostrar todos os cadastros nos eventos",
