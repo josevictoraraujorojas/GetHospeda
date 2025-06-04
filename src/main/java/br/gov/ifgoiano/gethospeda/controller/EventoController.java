@@ -12,6 +12,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,11 +21,9 @@ import java.util.List;
 @RestController
 @RequestMapping("/eventos")
 public class EventoController {
-    private final EventoService service;
 
-    public EventoController(EventoService service) {
-        this.service = service;
-    }
+    @Autowired
+    private EventoService service;
 
     @GetMapping
     @Operation(summary = "Encontrar todos os eventos", description = "Encontrar todos os eventos",
