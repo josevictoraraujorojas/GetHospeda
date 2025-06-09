@@ -7,6 +7,8 @@ import br.gov.ifgoiano.gethospeda.model.Imovel;
 import br.gov.ifgoiano.gethospeda.repository.ImovelRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +19,7 @@ import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class ImovelService {
+
     @Autowired
     private ImovelRepository imovelRepository;
     @Autowired
@@ -29,34 +32,39 @@ public class ImovelService {
     private EventoService eventoService;
     @Autowired
     private AvaliacaoImovelService avaliacaoImovelService;
+
     private final Logger logger = Logger.getLogger(this.getClass().getName());
 
+    @Cacheable("imoveis")
     public List<ImovelResumoDTO> findAll() {
         logger.info("findAll");
         List<Imovel> imoveis = imovelRepository.findAll();
         return DataMapper.parseListObjects(imoveis, ImovelResumoDTO.class);
     }
 
+    @Cacheable(value = "quartosPorImovel", key = "#id")
     public List<QuartoResumoDTO> quartoFindByImovel(long id) {
-       imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
-       List<QuartoResumoDTO> quartoResumoDTOS = quartoService.findByImovel(id);
-       quartoResumoDTOS.forEach(quartoResumoDTO -> {
-          quartoResumoDTO.add(linkTo(methodOn(QuartoController.class).findById(quartoResumoDTO.getId())).withSelfRel());
-       });
-       return quartoResumoDTOS;
+        imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        List<QuartoResumoDTO> quartoResumoDTOS = quartoService.findByImovel(id);
+        quartoResumoDTOS.forEach(quartoResumoDTO -> {
+            quartoResumoDTO.add(linkTo(methodOn(QuartoController.class).findById(quartoResumoDTO.getId())).withSelfRel());
+        });
+        return quartoResumoDTOS;
     }
 
+    @Cacheable(value = "areasPorImovel", key = "#id")
     public List<AreaResumoDTO> areaFindByImovel(long id) {
-        imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
+        imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         List<AreaResumoDTO> areaResumoDTOS = areaService.findByImovel(id);
         areaResumoDTOS.forEach(areaResumoDTO -> {
-           areaResumoDTO.add(linkTo(methodOn(AreaController.class).findById(areaResumoDTO.getId())).withSelfRel());
+            areaResumoDTO.add(linkTo(methodOn(AreaController.class).findById(areaResumoDTO.getId())).withSelfRel());
         });
         return areaResumoDTOS;
     }
 
+    @Cacheable(value = "servicosPorImovel", key = "#id")
     public List<ServicoResumoDTO> servicoFindByImovel(long id) {
-        imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
+        imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         List<ServicoResumoDTO> servicoResumoDTOS = servicoService.findByImovel(id);
         servicoResumoDTOS.forEach(servicoResumoDTO -> {
             servicoResumoDTO.add(linkTo(methodOn(ServicoController.class).buscarPorId(servicoResumoDTO.getId())).withSelfRel());
@@ -64,17 +72,19 @@ public class ImovelService {
         return servicoResumoDTOS;
     }
 
+    @Cacheable(value = "eventosPorImovel", key = "#id")
     public List<EventoResumoDTO> eventoFindByImovel(long id) {
-        imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
-        List<EventoResumoDTO> eventoResumoDTOS= eventoService.findByImovel(id);
+        imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
+        List<EventoResumoDTO> eventoResumoDTOS = eventoService.findByImovel(id);
         eventoResumoDTOS.forEach(eventoResumoDTO -> {
             eventoResumoDTO.add(linkTo(methodOn(EventoController.class).buscarPorId(eventoResumoDTO.getId())).withSelfRel());
         });
         return eventoResumoDTOS;
     }
 
+    @Cacheable(value = "avaliacoesPorImovel", key = "#id")
     public List<AvaliacaoImovelResumoDTO> avaliacaoFindByImovel(long id) {
-        imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
+        imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         List<AvaliacaoImovelResumoDTO> avaliacaoImovelResumoDTOS = avaliacaoImovelService.findByImovel(id);
         avaliacaoImovelResumoDTOS.forEach(avaliacaoImovelResumoDTO -> {
             avaliacaoImovelResumoDTO.add(linkTo(methodOn(AvaliacaoImovelController.class).getAvaliacaoImovel(avaliacaoImovelResumoDTO.getId())).withSelfRel());
@@ -82,21 +92,23 @@ public class ImovelService {
         return avaliacaoImovelResumoDTOS;
     }
 
-
+    @Cacheable(value = "imovel", key = "#id")
     public ImovelCompletoDTO findById(Long id) {
         logger.info("findById");
-        Imovel imovel = imovelRepository.findById(id).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
+        Imovel imovel = imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         return DataMapper.parseObject(imovel, ImovelCompletoDTO.class);
     }
 
+    @CacheEvict(value = {"imoveis", "imovel"}, allEntries = true)
     public ImovelCompletoDTO save(ImovelCreateDTO imovel) {
         logger.info("save");
-        return DataMapper.parseObject(imovelRepository.save(DataMapper.parseObject(imovel,Imovel.class)),ImovelCompletoDTO.class);
+        return DataMapper.parseObject(imovelRepository.save(DataMapper.parseObject(imovel, Imovel.class)), ImovelCompletoDTO.class);
     }
 
+    @CacheEvict(value = {"imoveis", "imovel", "quartosPorImovel", "areasPorImovel", "servicosPorImovel", "eventosPorImovel", "avaliacoesPorImovel"}, key = "#imovel.id")
     public ImovelCompletoDTO update(ImovelCompletoDTO imovel) {
         logger.info("update");
-        Imovel entity = imovelRepository.findById(imovel.getId()).orElseThrow(()->new ResourceNotFoundException("No records found for this ID"));
+        Imovel entity = imovelRepository.findById(imovel.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         entity.setTitulo(imovel.getTitulo());
         entity.setDescricao(imovel.getDescricao());
         entity.setEndereco(imovel.getEndereco());
@@ -109,10 +121,9 @@ public class ImovelService {
         return DataMapper.parseObject(imovelRepository.save(entity), ImovelCompletoDTO.class);
     }
 
+    @CacheEvict(value = {"imoveis", "imovel", "quartosPorImovel", "areasPorImovel", "servicosPorImovel", "eventosPorImovel", "avaliacoesPorImovel"}, key = "#id")
     public void delete(Long id) {
         logger.info("delete");
         imovelRepository.deleteById(id);
     }
-
-
 }
