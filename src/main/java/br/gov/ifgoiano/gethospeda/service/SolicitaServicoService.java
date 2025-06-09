@@ -10,6 +10,9 @@ import br.gov.ifgoiano.gethospeda.model.SolicitaServicoId;
 import br.gov.ifgoiano.gethospeda.repository.SolicitaServicoRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -38,6 +41,7 @@ public class SolicitaServicoService {
         return servicosDto;
     }
 
+    @Cacheable(value = "solicitaservicos", key = "#id")
     public SolicitaServicoDTOOutput findById(Long reservaId, Long servicoId) {
         SolicitaServicoId id = new SolicitaServicoId(reservaId, servicoId);
 
@@ -61,6 +65,7 @@ public class SolicitaServicoService {
         return vo;
     }
 
+    @CachePut(value = "solicitaservicos", key = "#solicita.id")
     public SolicitaServicoDTO update(SolicitaServicoDTO dto) {
         SolicitaServicoId id = new SolicitaServicoId(dto.getReservaId(), dto.getServicoId());
 
@@ -76,6 +81,7 @@ public class SolicitaServicoService {
         return vo;
     }
 
+    @CacheEvict(value = "solicitaservicos", key = "#id")
     public void delete(SolicitaServicoDTO solicitacao) {
         SolicitaServicoId id = new SolicitaServicoId(solicitacao.getReservaId(), solicitacao.getServicoId());
 

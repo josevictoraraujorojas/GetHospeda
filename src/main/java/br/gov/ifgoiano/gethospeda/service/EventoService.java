@@ -8,6 +8,9 @@ import br.gov.ifgoiano.gethospeda.model.Imovel;
 import br.gov.ifgoiano.gethospeda.repository.EventoRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,6 +35,7 @@ public class EventoService {
         return eventosDto;
     }
 
+    @Cacheable(value = "eventos", key = "#id")
     public EventoDTOOutput findById(Long id) {
         var eventoEntity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
@@ -51,6 +55,7 @@ public class EventoService {
         return vo;
     }
 
+    @CachePut(value = "eventos", key = "#evento.id")
     public EventoDTO update(EventoDTO eventoDTO) {
         var entity = repository.findById(eventoDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
@@ -73,6 +78,7 @@ public class EventoService {
         return vo;
     }
 
+    @CacheEvict(value = "eventos", key = "#id")
     public void delete(Long id) {
         var eventoEntity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));

@@ -37,6 +37,7 @@ public class CadastraEventoService {
 //        return eventoDto;
 //    }
 //
+//    @Cacheable(value = "cadastraeventos", key = "#id")
 //    public CadastraEventoDTOOutput findById(Long reservaId, Long servicoId) {
 //        CadastraEventoId id = new CadastraEventoId(reservaId, servicoId);
 //
@@ -60,6 +61,7 @@ public class CadastraEventoService {
 //        return vo;
 //    }
 //
+//    @CachePut(value = "cadastraeventos", key = "#cadastra.id")
 //    public CadastraEventoDTO update(CadastraEventoDTO dto) {
 //        CadastraEventoId id = new CadastraEventoId(dto.getEventoId(), dto.getHospedeId());
 //
@@ -75,6 +77,7 @@ public class CadastraEventoService {
 //        return vo;
 //    }
 //
+//    @CacheEvict(value = "cadastraeventos", key = "#id")
 //    public void delete(CadastraEventoDTO solicitacao) {
 //        CadastraEventoId id = new CadastraEventoId(solicitacao.getEventoId(), solicitacao.getHospedeId());
 //

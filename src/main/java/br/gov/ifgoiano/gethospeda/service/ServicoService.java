@@ -8,6 +8,9 @@ import br.gov.ifgoiano.gethospeda.model.Imovel;
 import br.gov.ifgoiano.gethospeda.repository.ServicoRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,6 +33,7 @@ public class ServicoService {
         return servicosDto;
     }
 
+    @Cacheable(value = "servicos", key = "#id")
     public ServicoDTOOutput findById(Long id) {
         var servicoEntity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
@@ -49,6 +53,7 @@ public class ServicoService {
         return vo;
     }
 
+    @CachePut(value = "servicos", key = "#servico.id")
     public ServicoDTO update(ServicoDTO servicoDTO) {
         var entity = repository.findById(servicoDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
@@ -69,6 +74,7 @@ public class ServicoService {
         return vo;
     }
 
+    @CacheEvict(value = "servicos", key = "#id")
     public void delete(Long id) {
         var servicoEntity = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));

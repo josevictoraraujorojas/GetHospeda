@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -66,7 +67,7 @@ public class SolicitaServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public SolicitaServicoDTO solicitar(@RequestBody SolicitaServicoDTO solicitacao) {
+    public SolicitaServicoDTO solicitar(@RequestBody @Valid SolicitaServicoDTO solicitacao) {
         return service.save(solicitacao);
     }
 
@@ -86,7 +87,7 @@ public class SolicitaServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public SolicitaServicoDTO atualizar(@RequestBody SolicitaServicoDTO solicitacao) {
+    public SolicitaServicoDTO atualizar(@RequestBody @Valid SolicitaServicoDTO solicitacao) {
         return service.update(solicitacao);
     }
 
