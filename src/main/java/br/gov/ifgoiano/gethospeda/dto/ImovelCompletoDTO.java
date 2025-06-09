@@ -14,10 +14,12 @@ public class ImovelCompletoDTO implements Serializable {
     private float precoDiaria;
     private String politicaDeCancelamento;
     private String status;
+    private ProprietarioResumoDTO proprietario;
     private List<QuartoResumoDTO> quartos;
     private List<AreaResumoDTO> areas;
     private List<ServicoResumoDTO> servicos;
     private List<EventoResumoDTO> eventos;
+    private List<AvaliacaoImovelResumoDTO> avaliacoesImovel;
 
     public ImovelCompletoDTO() {
     }
@@ -132,5 +134,21 @@ public class ImovelCompletoDTO implements Serializable {
 
     public void setEventos(List<EventoResumoDTO> eventos) {
         this.eventos = eventos;
+    }
+
+    public ProprietarioResumoDTO getProprietario() {
+        return proprietario;
+    }
+
+    public void setProprietario(ProprietarioResumoDTO proprietario) {
+        this.proprietario = proprietario;
+    }
+
+    public List<AvaliacaoImovelResumoDTO> getAvaliacoesImovel() {
+        return avaliacoesImovel;
+    }
+
+    public void setAvaliacoesImovel(List<AvaliacaoImovelResumoDTO> avaliacoesImovel) {
+        this.avaliacoesImovel = avaliacoesImovel;
     }
 }

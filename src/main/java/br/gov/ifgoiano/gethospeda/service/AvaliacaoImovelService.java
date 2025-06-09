@@ -1,8 +1,12 @@
 package br.gov.ifgoiano.gethospeda.service;
 
+import br.gov.ifgoiano.gethospeda.dto.AvaliacaoImovelResumoDTO;
+import br.gov.ifgoiano.gethospeda.dto.EventoResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.AvaliacaoImovel;
+import br.gov.ifgoiano.gethospeda.model.Evento;
 import br.gov.ifgoiano.gethospeda.repository.AvaliacaoImovelRepository;
+import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,10 @@ public class AvaliacaoImovelService {
         return avaliacaoImovelRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for thi id"));
     }
 
+    public List<AvaliacaoImovelResumoDTO> findByImovel(long id) {
+        List<AvaliacaoImovel> avaliacaoImovels = avaliacaoImovelRepository.findByImovelId(id);
+        return DataMapper.parseListObjects(avaliacaoImovels, AvaliacaoImovelResumoDTO.class);
+    }
 
     public AvaliacaoImovel save(AvaliacaoImovel avaliacaoImovel){
         logger.info("save");

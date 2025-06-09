@@ -1,9 +1,13 @@
 package br.gov.ifgoiano.gethospeda.service;
 
+import br.gov.ifgoiano.gethospeda.dto.QuartoResumoDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
+import br.gov.ifgoiano.gethospeda.dto.ServicoResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Imovel;
+import br.gov.ifgoiano.gethospeda.model.Quarto;
+import br.gov.ifgoiano.gethospeda.model.Servico;
 import br.gov.ifgoiano.gethospeda.repository.ServicoRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +30,11 @@ public class ServicoService {
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
         // Aqui garantimos que o objeto é Evento para o ModelMapper
         return DataMapper.parseObject(servicoEntity, ServicoDTOOutput.class);
+    }
+
+    public List<ServicoResumoDTO> findByImovel(long id) {
+        List<Servico> servicos = repository.findByImovelId(id);
+        return DataMapper.parseListObjects(servicos, ServicoResumoDTO.class);
     }
 
     public ServicoDTO save(ServicoDTO servicoDTO) {

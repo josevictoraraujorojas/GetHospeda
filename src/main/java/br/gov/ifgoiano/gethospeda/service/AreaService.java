@@ -32,6 +32,12 @@ public class AreaService {
         return DataMapper.parseObject(area,AreaCompletoDTO.class);
     }
 
+    public List<AreaResumoDTO> findByImovel(long id) {
+        logger.info("findAll");
+        List<Area> area = (List<Area>) areaRepository.findByImovelId(id);
+        return DataMapper.parseListObjects(area,AreaResumoDTO.class);
+    }
+
     public AreaCompletoDTO save(AreaCreateDTO area) {
         logger.info("save");
         Area areaNova = DataMapper.parseObject(area,Area.class);

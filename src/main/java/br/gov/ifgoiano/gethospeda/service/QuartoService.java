@@ -26,6 +26,13 @@ public class QuartoService {
         return DataMapper.parseListObjects(quartos, QuartoResumoDTO.class);
     }
 
+    public List<QuartoResumoDTO> findByImovel(long id) {
+        logger.info("findByImovel");
+        List<Quarto> quartos = quartoRepository.findByImovelId(id);
+        return DataMapper.parseListObjects(quartos, QuartoResumoDTO.class);
+    }
+
+
     public QuartoCompletoDTO findById(Long id) {
         logger.info("findById");
         Quarto quarto = quartoRepository.findById(id).orElseThrow(()-> new ResourceNotFoundException("No records found for this ID"));

@@ -1,8 +1,10 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 
-public class QuartoResumoDTO implements Serializable {
+public class QuartoResumoDTO extends RepresentationModel<QuartoResumoDTO> implements Serializable{
     private long id;
     private String tipo;
     private String descricao;

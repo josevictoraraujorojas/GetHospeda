@@ -1,8 +1,10 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Date;
 
-public class EventoResumoDTO {
+public class EventoResumoDTO extends RepresentationModel<EventoResumoDTO> {
     private long id;
     private String nome;
     private String descricao;

@@ -1,8 +1,6 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
 import br.gov.ifgoiano.gethospeda.dto.*;
-import br.gov.ifgoiano.gethospeda.model.Imovel;
-import br.gov.ifgoiano.gethospeda.repository.ImovelRepository;
 import br.gov.ifgoiano.gethospeda.service.ImovelService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -38,6 +36,98 @@ public class ImovelController {
     )
     public ImovelCompletoDTO findById(@PathVariable long id) {
         return imovelService.findById(id);
+    }
+
+
+
+    @GetMapping(value = "/quarto/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Buscar os quartos do imovel", description = "Buscar todos os quartos de um imovel pelo id do imovel",
+            tags = {"Imovel"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = AreaCompletoDTO.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
+    public List<QuartoResumoDTO> quartoFindByImovel(@PathVariable long id) {
+        return imovelService.quartoFindByImovel(id);
+    }
+
+    @GetMapping(value = "/area/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Buscar as areas do imovel", description = "Buscar todas as areas de um imovel pelo id do imovel",
+            tags = {"Imovel"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = AreaCompletoDTO.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
+    public List<AreaResumoDTO> areaFindByImovel(@PathVariable long id) {
+        return imovelService.areaFindByImovel(id);
+    }
+
+    @GetMapping(value = "/servico/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Buscar os servico do imovel", description = "Buscar todos os servicos de um imovel pelo id do imovel",
+            tags = {"Imovel"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = AreaCompletoDTO.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
+    public List<ServicoResumoDTO> servicoFindByImovel(@PathVariable long id) {
+        return imovelService.servicoFindByImovel(id);
+    }
+
+    @GetMapping(value = "/evento/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Buscar os eventos do imovel", description = "Buscar todos os eventos de um imovel pelo id do imovel",
+            tags = {"Imovel"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = AreaCompletoDTO.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
+    public List<EventoResumoDTO> eventoFindByImovel(@PathVariable long id) {
+        return imovelService.eventoFindByImovel(id);
+    }
+
+    @GetMapping(value = "/avaliacaoimovel/{id}",produces = MediaType.APPLICATION_JSON_VALUE)
+    @Operation(summary = "Buscar as avaliacoes do imovel", description = "Buscar todas as avaliacoes de um imovel pelo id do imovel",
+            tags = {"Imovel"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = @Content(schema = @Schema(implementation = AreaCompletoDTO.class))
+                    ),
+                    @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            }
+    )
+    public List<AvaliacaoImovelResumoDTO> avaliacaoFindByImovel(@PathVariable long id) {
+        return imovelService.avaliacaoFindByImovel(id);
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)

@@ -1,6 +1,8 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-public class ServicoResumoDTO {
+import org.springframework.hateoas.RepresentationModel;
+
+public class ServicoResumoDTO extends RepresentationModel<ServicoResumoDTO> {
     private long id;
     private String nome;
     private double preco;
