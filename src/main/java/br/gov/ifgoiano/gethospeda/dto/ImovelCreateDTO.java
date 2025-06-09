@@ -16,7 +16,7 @@ public class ImovelCreateDTO {
     private String cidade;
     @NotBlank
     private String estado;
-    @Pattern(regexp = "^\\d{8}$\n")
+    @Pattern(regexp = "^\\d{8}$")
     private String cep;
     @Min(1)
     private float precoDiaria;

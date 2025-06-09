@@ -96,7 +96,7 @@ public class ImovelController {
     @DeleteMapping(value = "/{id}")
     @Operation(summary = "Deletar um imovel",
             description = "Deletar uma imovel pelo id",
-            tags = {"Quarto"},
+            tags = {"Imovel"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),

@@ -97,7 +97,7 @@ public class AreaController {
     @DeleteMapping(value = "/{id}")
     @Operation(summary = "Deletar uma area",
             description = "Deletar uma area pelo id",
-            tags = {"Quarto"},
+            tags = {"Area"},
             responses = {
                     @ApiResponse(description = "No Content", responseCode = "204", content = @Content),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
