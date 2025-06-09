@@ -1,20 +1,21 @@
 package br.gov.ifgoiano.gethospeda.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import java.util.Date;
 
 @Entity
-@IdClass(CadastraEventoId.class)
 public class CadastraEvento {
 
-    @Id
+    @EmbeddedId
+    private CadastraEventoId id = new CadastraEventoId();
+
     @ManyToOne
+    @MapsId("eventoId")
     @JoinColumn(name = "evento_id", referencedColumnName = "id")
     private Evento evento;
 
-    @Id
     @ManyToOne
+    @MapsId("hospedeId")
     @JoinColumn(name = "hospede_id", referencedColumnName = "id")
     private Hospede hospede;
 
@@ -23,12 +24,23 @@ public class CadastraEvento {
     public CadastraEvento() {
     }
 
+    public CadastraEventoId getId() {
+        return id;
+    }
+
+    public void setId(CadastraEventoId id) {
+        this.id = id;
+    }
+
     public Evento getEvento() {
         return evento;
     }
 
     public void setEvento(Evento evento) {
         this.evento = evento;
+        if (evento != null) {
+            this.id.setEventoId(evento.getId());
+        }
     }
 
     public Hospede getHospede() {
@@ -37,6 +49,9 @@ public class CadastraEvento {
 
     public void setHospede(Hospede hospede) {
         this.hospede = hospede;
+        if (hospede != null) {
+            this.id.setHospedeId(hospede.getId());
+        }
     }
 
     public Date getDataCadastro() {
