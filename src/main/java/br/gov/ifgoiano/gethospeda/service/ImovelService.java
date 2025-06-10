@@ -39,7 +39,11 @@ public class ImovelService {
     public List<ImovelResumoDTO> findAll() {
         logger.info("findAll");
         List<Imovel> imoveis = imovelRepository.findAll();
-        return DataMapper.parseListObjects(imoveis, ImovelResumoDTO.class);
+        List<ImovelResumoDTO> imovelResumoDTOS = DataMapper.parseListObjects(imoveis, ImovelResumoDTO.class);
+        imovelResumoDTOS.forEach(imovelResumoDTO -> {
+            imovelResumoDTO.add(linkTo(methodOn(ImovelController.class).findById(imovelResumoDTO.getId())).withSelfRel());
+        });
+        return imovelResumoDTOS;
     }
 
     @Cacheable(value = "quartosPorImovel", key = "#id")
@@ -96,7 +100,14 @@ public class ImovelService {
     public ImovelCompletoDTO findById(Long id) {
         logger.info("findById");
         Imovel imovel = imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-        return DataMapper.parseObject(imovel, ImovelCompletoDTO.class);
+        ImovelCompletoDTO  imovelCompletoDTO = DataMapper.parseObject(imovel, ImovelCompletoDTO.class);
+        imovelCompletoDTO.add(linkTo(methodOn(ImovelController.class).quartoFindByImovel(imovelCompletoDTO.getId())).withSelfRel());
+        imovelCompletoDTO.add(linkTo(methodOn(ImovelController.class).areaFindByImovel(imovelCompletoDTO.getId())).withSelfRel());
+        imovelCompletoDTO.add(linkTo(methodOn(ImovelController.class).eventoFindByImovel(imovelCompletoDTO.getId())).withSelfRel());
+        imovelCompletoDTO.add(linkTo(methodOn(ImovelController.class).servicoFindByImovel(imovelCompletoDTO.getId())).withSelfRel());
+        imovelCompletoDTO.add(linkTo(methodOn(ImovelController.class).avaliacaoFindByImovel(imovelCompletoDTO.getId())).withSelfRel());
+
+        return imovelCompletoDTO;
     }
 
     @CacheEvict(value = {"imoveis", "imovel"}, allEntries = true)

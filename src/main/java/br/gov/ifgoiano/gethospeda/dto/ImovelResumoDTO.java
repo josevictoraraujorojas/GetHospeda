@@ -1,8 +1,10 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 
-public class ImovelResumoDTO implements Serializable {
+public class ImovelResumoDTO extends RepresentationModel<ImovelResumoDTO> implements Serializable {
     private long id;
     private String titulo;
     private String descricao;

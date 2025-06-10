@@ -1,9 +1,11 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import org.springframework.hateoas.RepresentationModel;
+
 import java.io.Serializable;
 import java.util.List;
 
-public class ImovelCompletoDTO implements Serializable {
+public class ImovelCompletoDTO extends RepresentationModel<ImovelCompletoDTO> implements Serializable {
     private long id;
     private String titulo;
     private String descricao;
@@ -15,11 +17,6 @@ public class ImovelCompletoDTO implements Serializable {
     private String politicaDeCancelamento;
     private String status;
     private ProprietarioResumoDTO proprietario;
-    private List<QuartoResumoDTO> quartos;
-    private List<AreaResumoDTO> areas;
-    private List<ServicoResumoDTO> servicos;
-    private List<EventoResumoDTO> eventos;
-    private List<AvaliacaoImovelResumoDTO> avaliacoesImovel;
 
     public ImovelCompletoDTO() {
     }
@@ -104,51 +101,11 @@ public class ImovelCompletoDTO implements Serializable {
         this.status = status;
     }
 
-    public List<QuartoResumoDTO> getQuartos() {
-        return quartos;
-    }
-
-    public void setQuartos(List<QuartoResumoDTO> quartos) {
-        this.quartos = quartos;
-    }
-
-    public List<AreaResumoDTO> getAreas() {
-        return areas;
-    }
-
-    public void setAreas(List<AreaResumoDTO> areas) {
-        this.areas = areas;
-    }
-
-    public List<ServicoResumoDTO> getServicos() {
-        return servicos;
-    }
-
-    public void setServicos(List<ServicoResumoDTO> servicos) {
-        this.servicos = servicos;
-    }
-
-    public List<EventoResumoDTO> getEventos() {
-        return eventos;
-    }
-
-    public void setEventos(List<EventoResumoDTO> eventos) {
-        this.eventos = eventos;
-    }
-
     public ProprietarioResumoDTO getProprietario() {
         return proprietario;
     }
 
     public void setProprietario(ProprietarioResumoDTO proprietario) {
         this.proprietario = proprietario;
-    }
-
-    public List<AvaliacaoImovelResumoDTO> getAvaliacoesImovel() {
-        return avaliacoesImovel;
-    }
-
-    public void setAvaliacoesImovel(List<AvaliacaoImovelResumoDTO> avaliacoesImovel) {
-        this.avaliacoesImovel = avaliacoesImovel;
     }
 }
