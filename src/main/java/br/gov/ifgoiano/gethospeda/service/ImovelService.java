@@ -117,7 +117,7 @@ public class ImovelService {
     }
 
     @CacheEvict(value = {"imoveis", "imovel", "quartosPorImovel", "areasPorImovel", "servicosPorImovel", "eventosPorImovel", "avaliacoesPorImovel"}, key = "#imovel.id")
-    public ImovelCompletoDTO update(ImovelCompletoDTO imovel) {
+    public ImovelCompletoDTO update(ImovelUpdateDTO imovel) {
         logger.info("update");
         Imovel entity = imovelRepository.findById(imovel.getId()).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         entity.setTitulo(imovel.getTitulo());
@@ -133,8 +133,13 @@ public class ImovelService {
     }
 
     @CacheEvict(value = {"imoveis", "imovel", "quartosPorImovel", "areasPorImovel", "servicosPorImovel", "eventosPorImovel", "avaliacoesPorImovel"}, key = "#id")
-    public void delete(Long id) {
+    public boolean  delete(Long id) {
         logger.info("delete");
-        imovelRepository.deleteById(id);
+        if (imovelRepository.findById(id).isPresent()) {
+            imovelRepository.deleteById(id);
+            return true;
+        }else {
+            return false;
+        }
     }
 }
