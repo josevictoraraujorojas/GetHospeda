@@ -14,7 +14,7 @@ public class OpenApiConfig {
                 .info(new Info()
                         .title("RESTful API with Java and Spring Boot")
                         .version("v1")
-                        .description("API example about Person")
+                        .description("API sobre o gerenciamento de hospedagem")
                         .termsOfService("https://ifgoiano.urt.gov/projetos")
                         .license(
                                 new License()
