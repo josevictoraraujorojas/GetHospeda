@@ -38,7 +38,6 @@ public class ServicoController {
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
@@ -58,13 +57,31 @@ public class ServicoController {
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ResponseEntity<ServicoDTOOutput> buscarPorId(@PathVariable Long id) {
+    public ServicoDTOOutput buscarPorId(@PathVariable Long id) {
         ServicoDTOOutput servico = service.findById(id);
-        return ResponseEntity.ok(DataMapper.parseObject(servico, ServicoDTOOutput.class));
+        return DataMapper.parseObject(servico, ServicoDTOOutput.class);
+    }
+
+    @GetMapping("/imovel/{imovelId}")
+    @Operation(summary = "Encontra serviço por imóvel", description = "Encontra serviço por imóvel",
+            tags = {"Serviços"},
+            responses = {
+                    @ApiResponse(description = "Success", responseCode = "200",
+                            content = {
+                                    @Content(
+                                            mediaType = "application/json",
+                                            array = @ArraySchema(schema = @Schema(implementation = Servico.class))
+                                    )
+                            }),
+                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
+                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+            })
+    public List<ServicoDTOOutput> getServicosByImovelId(@PathVariable int imovelId) {
+        return service.findByImovelId(imovelId);
     }
 
     @PostMapping("/adicionar")
@@ -79,7 +96,6 @@ public class ServicoController {
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
@@ -99,7 +115,6 @@ public class ServicoController {
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
@@ -124,7 +139,6 @@ public class ServicoController {
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Unauthorized", responseCode = "401", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })

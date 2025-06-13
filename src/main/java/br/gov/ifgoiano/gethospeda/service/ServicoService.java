@@ -1,10 +1,12 @@
 package br.gov.ifgoiano.gethospeda.service;
 
 import br.gov.ifgoiano.gethospeda.controller.ImovelController;
+import br.gov.ifgoiano.gethospeda.dto.EventoDTOOutput;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Imovel;
+import br.gov.ifgoiano.gethospeda.model.Servico;
 import br.gov.ifgoiano.gethospeda.repository.ServicoRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +43,21 @@ public class ServicoService {
         ServicoDTOOutput vo = DataMapper.parseObject(servicoEntity, ServicoDTOOutput.class);
         vo.add(linkTo(methodOn(ImovelController.class).findById(servicoEntity.getImovel().getId())).withSelfRel());
         return vo;
+    }
+
+    @Cacheable(value = "servicos", key = "#imovelId")
+    public List<ServicoDTOOutput> findByImovelId(int imovelId) {
+
+        var servicos = repository.findByImovelId(imovelId);
+        if (servicos.isEmpty()) {
+            throw new ResourceNotFoundException("Sem serviços marcados para esse imóvel!");
+        }
+
+        var servicosDto = DataMapper.parseListObjects(servicos, ServicoDTOOutput.class);
+        servicosDto.forEach(e ->
+                e.add(linkTo(methodOn(ImovelController.class).findById(e.getImovel().getId())).withSelfRel())
+        );
+        return servicosDto;
     }
 
     public ServicoDTO save(ServicoDTO servicoDTO) {

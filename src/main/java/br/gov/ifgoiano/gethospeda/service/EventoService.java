@@ -45,6 +45,20 @@ public class EventoService {
         return vo;
     }
 
+    @Cacheable(value = "eventos", key = "#imovelId")
+    public List<EventoDTOOutput> findByImovelId(int imovelId) {
+        var eventos = repository.findByImovelId(imovelId);
+        if (eventos.isEmpty()) {
+            throw new ResourceNotFoundException("Sem eventos marcados para esse imóvel!");
+        }
+
+        var eventosDto = DataMapper.parseListObjects(eventos, EventoDTOOutput.class);
+        eventosDto.forEach(e ->
+                e.add(linkTo(methodOn(ImovelController.class).findById(e.getImovel().getId())).withSelfRel())
+        );
+        return eventosDto;
+    }
+
     public EventoDTO save(EventoDTO eventoDTO) {
         var eventoEntity = DataMapper.parseObject(eventoDTO, br.gov.ifgoiano.gethospeda.model.Evento.class);
 
