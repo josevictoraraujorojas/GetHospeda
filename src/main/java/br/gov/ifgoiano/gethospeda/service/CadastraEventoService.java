@@ -6,8 +6,13 @@ import br.gov.ifgoiano.gethospeda.dto.CadastraEventoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.CadastraEvento;
 import br.gov.ifgoiano.gethospeda.model.CadastraEventoId;
+import br.gov.ifgoiano.gethospeda.model.Evento;
+import br.gov.ifgoiano.gethospeda.model.Hospede;
 import br.gov.ifgoiano.gethospeda.repository.CadastraEventoRepository;
+import br.gov.ifgoiano.gethospeda.repository.HospedeRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
@@ -25,6 +30,12 @@ public class CadastraEventoService {
     @Autowired
     private CadastraEventoRepository repository;
 
+    @Autowired
+    private HospedeRepository hospedeRepository;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public List<CadastraEventoDTOOutput> findAll() {
         var cadastraEventos = repository.findAll();
         var eventoDto = DataMapper.parseListObjects(cadastraEventos, CadastraEventoDTOOutput.class);
@@ -40,7 +51,7 @@ public class CadastraEventoService {
         return eventoDto;
     }
 
-    @Cacheable(value = "cadastraeventos", key = "#eventoId")
+    @Cacheable(value = "cadastraeventos", key = "#eventoId + '-' + #hospedeId")
     public CadastraEventoDTOOutput findById(Long eventoId, Long hospedeId) {
         CadastraEventoId id = new CadastraEventoId(eventoId, hospedeId);
 
@@ -54,14 +65,23 @@ public class CadastraEventoService {
     }
 
     public CadastraEventoDTO save(CadastraEventoDTO cadastro) {
-        var eventoEntity = DataMapper.parseObject(cadastro, br.gov.ifgoiano.gethospeda.model.CadastraEvento.class);
+        Hospede hospede = hospedeRepository.findById(cadastro.getHospedeId())
+                .orElseThrow(() -> new ResourceNotFoundException("Hóspede não encontrado."));
 
-        var eventoSaved = repository.save(eventoEntity);
-        var vo = DataMapper.parseObject(eventoSaved, CadastraEventoDTO.class);
+        Evento evento = entityManager.getReference(Evento.class, cadastro.getEventoId());
 
-        vo.add(linkTo(methodOn(EventoController.class).buscarPorId(eventoSaved.getEvento().getId())).withSelfRel());
-//        vo.add(linkTo(methodOn(HospedeController.class).buscarPorId(eventoSaved.getHospede().getId())).withSelfRel());
-        return vo;
+        CadastraEvento entity = new CadastraEvento();
+        entity.setEvento(evento);
+        entity.setHospede(hospede);
+        entity.setDataCadastro(cadastro.getDataCadastro());
+
+        CadastraEvento saved = repository.save(entity);
+
+        CadastraEventoDTO dto = DataMapper.parseObject(saved, CadastraEventoDTO.class);
+        dto.add(linkTo(methodOn(EventoController.class).buscarPorId(saved.getEvento().getId())).withSelfRel());
+
+//        dto.add(linkTo(methodOn(HospedeController.class).buscarPorId(eventoSaved.getHospede().getId())).withSelfRel());
+        return dto;
     }
 
     @CachePut(value = "cadastraeventos", key = "#dto.eventoId")
