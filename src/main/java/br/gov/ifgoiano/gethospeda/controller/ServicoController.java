@@ -67,7 +67,7 @@ public class ServicoController {
         return ResponseEntity.ok(DataMapper.parseObject(servico, ServicoDTOOutput.class));
     }
 
-    @PostMapping
+    @PostMapping("/adicionar")
     @Operation(summary = "Salva um serviço", description = "Salva um serviço",
             tags = {"Serviços"},
             responses = {
@@ -87,7 +87,7 @@ public class ServicoController {
         return service.save(servicoDTO);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     @Operation(summary = "Atualiza um serviço", description = "Atualiza um serviço",
             tags = {"Serviços"},
             responses = {
@@ -112,7 +112,7 @@ public class ServicoController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     @Operation(summary = "Deleta um serviço", description = "Deleta um serviço",
             tags = {"Serviços"},
             responses = {

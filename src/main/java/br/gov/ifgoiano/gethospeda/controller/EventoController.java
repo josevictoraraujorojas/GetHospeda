@@ -68,7 +68,7 @@ public class EventoController {
         return ResponseEntity.ok(DataMapper.parseObject(evento, EventoDTOOutput.class));
     }
 
-    @PostMapping
+    @PostMapping("/adicionar")
     @Operation(summary = "Cadastrar evento", description = "Cadastrar evento",
             tags = {"Evento"},
             responses = {
@@ -88,7 +88,7 @@ public class EventoController {
         return service.save(eventoDTO);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/atualizar/{id}")
     @Operation(summary = "Atualizar evento", description = "Atualizar evento",
             tags = {"Evento"},
             responses = {
@@ -113,7 +113,7 @@ public class EventoController {
         }
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletar/{id}")
     @Operation(summary = "Deletar evento", description = "Deletar evento",
             tags = {"Evento"},
             responses = {
