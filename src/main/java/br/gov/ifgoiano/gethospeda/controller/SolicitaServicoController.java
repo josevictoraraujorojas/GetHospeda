@@ -46,12 +46,12 @@ public class SolicitaServicoController {
     }
 
     @GetMapping("/{reservaId}/{servicoId}")
-    public ResponseEntity<SolicitaServicoDTOOutput> findById(@PathVariable Long reservaId, @PathVariable Long servicoId) {
+    public SolicitaServicoDTOOutput findById(@PathVariable Long reservaId, @PathVariable Long servicoId) {
         var dto = service.findById(reservaId, servicoId);
-        return ResponseEntity.ok(dto);
+        return dto;
     }
 
-    @PostMapping
+    @PostMapping("/solicitar")
     @Operation(summary = "Criar uma nova solicitação de serviço", description = "Criar uma nova solicitação de serviço",
             tags = {"Solicitações de Serviço"},
             responses = {
@@ -71,7 +71,7 @@ public class SolicitaServicoController {
         return service.save(solicitacao);
     }
 
-    @PutMapping
+    @PutMapping("/atualizar")
     @Operation(summary = "Atualizar uma solicitação de serviço", description = "Atualizar uma solicitação de serviço",
             tags = {"Solicitações de Serviço"},
             responses = {
@@ -91,7 +91,7 @@ public class SolicitaServicoController {
         return service.update(solicitacao);
     }
 
-    @DeleteMapping
+    @DeleteMapping("/deletar")
     @Operation(summary = "Deletar uma solicitação de serviço", description = "Deletar uma solicitação de serviço",
             tags = {"Solicitações de Serviço"},
             responses = {

@@ -41,7 +41,7 @@ public class SolicitaServicoService {
         return servicosDto;
     }
 
-    @Cacheable(value = "solicitaservicos", key = "#id")
+    @Cacheable(value = "solicitaservicos", key = "#reservaId")
     public SolicitaServicoDTOOutput findById(Long reservaId, Long servicoId) {
         SolicitaServicoId id = new SolicitaServicoId(reservaId, servicoId);
 
@@ -65,7 +65,7 @@ public class SolicitaServicoService {
         return vo;
     }
 
-    @CachePut(value = "solicitaservicos", key = "#solicita.id")
+    @CachePut(value = "solicitaservicos", key = "#dto.reservaId")
     public SolicitaServicoDTO update(SolicitaServicoDTO dto) {
         SolicitaServicoId id = new SolicitaServicoId(dto.getReservaId(), dto.getServicoId());
 
@@ -81,7 +81,7 @@ public class SolicitaServicoService {
         return vo;
     }
 
-    @CacheEvict(value = "solicitaservicos", key = "#id")
+    @CacheEvict(value = "solicitaservicos", key = "#solicitacao.reservaId")
     public void delete(SolicitaServicoDTO solicitacao) {
         SolicitaServicoId id = new SolicitaServicoId(solicitacao.getReservaId(), solicitacao.getServicoId());
 
