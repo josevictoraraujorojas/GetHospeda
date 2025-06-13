@@ -53,7 +53,7 @@ public class ServicoService {
         return vo;
     }
 
-    @CachePut(value = "servicos", key = "#servico.id")
+    @CachePut(value = "servicos", key = "#servicoDTO.id")
     public ServicoDTO update(ServicoDTO servicoDTO) {
         var entity = repository.findById(servicoDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));

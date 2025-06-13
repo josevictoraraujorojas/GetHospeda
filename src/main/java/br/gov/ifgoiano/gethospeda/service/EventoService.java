@@ -55,7 +55,7 @@ public class EventoService {
         return vo;
     }
 
-    @CachePut(value = "eventos", key = "#evento.id")
+    @CachePut(value = "eventos", key = "#eventoDTO.id")
     public EventoDTO update(EventoDTO eventoDTO) {
         var entity = repository.findById(eventoDTO.getId())
                 .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID!"));
