@@ -74,6 +74,8 @@ public class SolicitaServicoService {
 
         entity.setDataSolicitacao(dto.getDataSolicitacao());
 
+        repository.save(entity);
+
         var vo = DataMapper.parseObject(entity, SolicitaServicoDTO.class);
         vo.add(linkTo(methodOn(ReservaController.class).findById(entity.getReserva().getId())).withSelfRel());
         vo.add(linkTo(methodOn(ServicoController.class).buscarPorId(entity.getServico().getId())).withSelfRel());

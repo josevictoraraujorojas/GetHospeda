@@ -92,6 +92,7 @@ public class CadastraEventoService {
                 .orElseThrow(() -> new ResourceNotFoundException("Cadastro em evento não encontrada!"));
 
         entity.setDataCadastro(dto.getDataCadastro());
+        repository.save(entity);
 
         var vo = DataMapper.parseObject(entity, CadastraEventoDTO.class);
         vo.add(linkTo(methodOn(EventoController.class).buscarPorId(entity.getEvento().getId())).withSelfRel());
