@@ -6,8 +6,12 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
-@Schema(description = "DTO para criação de um imóvel")
-public class ImovelCreateDTO {
+@Schema(description = "DTO para atualização de um imóvel existente")
+public class ImovelUpdateDTO {
+
+    @Schema(description = "Identificador único do imóvel", example = "1", minimum = "1")
+    @Min(1)
+    private long id;
 
     @Schema(description = "Título do imóvel", example = "Casa de Praia")
     @NotBlank
@@ -41,11 +45,15 @@ public class ImovelCreateDTO {
     @NotBlank
     private String politicaDeCancelamento;
 
-    @Schema(description = "Resumo dos dados do proprietário associado ao imóvel")
-    @NotNull
-    private ProprietarioResumoDTO proprietarioResumo;
+    @Schema(description = "Status atual do imóvel", example = "DISPONIVEL", allowableValues = {"DISPONIVEL", "INDISPONIVEL", "EM_ANALISE"})
+    private String status;
 
-    public ImovelCreateDTO() {
+    public long getId() {
+        return id;
+    }
+
+    public void setId(@Min(1) long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -112,11 +120,11 @@ public class ImovelCreateDTO {
         this.politicaDeCancelamento = politicaDeCancelamento;
     }
 
-    public ProprietarioResumoDTO getProprietarioResumo() {
-        return proprietarioResumo;
+    public String getStatus() {
+        return status;
     }
 
-    public void setProprietarioResumo(ProprietarioResumoDTO proprietarioResumo) {
-        this.proprietarioResumo = proprietarioResumo;
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

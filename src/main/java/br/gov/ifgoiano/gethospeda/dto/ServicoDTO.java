@@ -84,6 +84,8 @@ public class ServicoDTO extends RepresentationModel<ServicoDTO> implements Seria
         this.imovel = imovel;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;

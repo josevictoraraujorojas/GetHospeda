@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.service;
 
+import br.gov.ifgoiano.gethospeda.controller.AreaController;
 import br.gov.ifgoiano.gethospeda.dto.AreaCompletoDTO;
 import br.gov.ifgoiano.gethospeda.dto.AreaCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.AreaResumoDTO;
@@ -7,12 +8,14 @@ import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Area;
 import br.gov.ifgoiano.gethospeda.repository.AreaRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
-import org.aspectj.weaver.ast.Var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.logging.Logger;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Service
 public class AreaService {
@@ -22,8 +25,12 @@ public class AreaService {
 
     public List<AreaResumoDTO> findAll() {
         logger.info("findAll");
-        List<Area> area = (List<Area>) areaRepository.findAll();
-        return DataMapper.parseListObjects(area,AreaResumoDTO.class);
+        List<Area> area = areaRepository.findAll();
+        List<AreaResumoDTO> dtos = DataMapper.parseListObjects(area,AreaResumoDTO.class);
+        dtos.forEach(dto -> {
+            dto.add(linkTo(methodOn(AreaController.class).findById(dto.getId())).withSelfRel());
+        });
+        return dtos;
     }
 
     public AreaCompletoDTO findById(Long id) {
@@ -32,12 +39,17 @@ public class AreaService {
         return DataMapper.parseObject(area,AreaCompletoDTO.class);
     }
 
+    public List<AreaResumoDTO> findByImovel(long id) {
+        logger.info("findAll");
+        List<Area> area = areaRepository.findByImovelId(id);
+        return DataMapper.parseListObjects(area,AreaResumoDTO.class);
+    }
+
     public AreaCompletoDTO save(AreaCreateDTO area) {
         logger.info("save");
         Area areaNova = DataMapper.parseObject(area,Area.class);
         areaNova = areaRepository.save(areaNova);
-        AreaCompletoDTO areaCompletoDTO = DataMapper.parseObject(areaNova,AreaCompletoDTO.class);
-        return areaCompletoDTO;
+        return DataMapper.parseObject(areaNova,AreaCompletoDTO.class);
     }
 
     public AreaCompletoDTO update(AreaCompletoDTO area) {
@@ -52,8 +64,12 @@ public class AreaService {
         return DataMapper.parseObject(newArea,AreaCompletoDTO.class);
     }
 
-    public void deleteById(Long id) {
-        areaRepository.deleteById(id);
+    public boolean deleteById(Long id) {
+        if (areaRepository.findById(id).isEmpty()) {
+            areaRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
 
 

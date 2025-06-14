@@ -1,6 +1,8 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-public class AreaResumoDTO {
+import org.springframework.hateoas.RepresentationModel;
+
+public class AreaResumoDTO extends RepresentationModel<AreaResumoDTO> {
     private long id;
     private String tipo;
     private String descricao;

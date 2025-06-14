@@ -1,6 +1,6 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-public class ProprietarioResumoDTO {
+public class ProprietarioResumoDTO extends UsuarioResumoDTO{
     private String cnpj;
 
     public ProprietarioResumoDTO() {

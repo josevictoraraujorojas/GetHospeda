@@ -3,8 +3,12 @@ package br.gov.ifgoiano.gethospeda.service;
 import br.gov.ifgoiano.gethospeda.controller.ImovelController;
 import br.gov.ifgoiano.gethospeda.dto.EventoDTO;
 import br.gov.ifgoiano.gethospeda.dto.EventoDTOOutput;
+import br.gov.ifgoiano.gethospeda.dto.EventoResumoDTO;
+import br.gov.ifgoiano.gethospeda.dto.ServicoResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
+import br.gov.ifgoiano.gethospeda.model.Evento;
 import br.gov.ifgoiano.gethospeda.model.Imovel;
+import br.gov.ifgoiano.gethospeda.model.Servico;
 import br.gov.ifgoiano.gethospeda.repository.EventoRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,6 +61,11 @@ public class EventoService {
                 e.add(linkTo(methodOn(ImovelController.class).findById(e.getImovel().getId())).withSelfRel())
         );
         return eventosDto;
+    }
+
+    public List<EventoResumoDTO> findByImovel(long id) {
+        List<Evento> eventos = repository.findByImovelId(id);
+        return DataMapper.parseListObjects(eventos, EventoResumoDTO.class);
     }
 
     public EventoDTO save(EventoDTO eventoDTO) {

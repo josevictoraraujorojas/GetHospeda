@@ -1,13 +1,33 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-public class QuartoCompletoDTO {
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.hateoas.Links;
+import org.springframework.hateoas.RepresentationModel;
+
+
+public class QuartoCompletoDTO extends RepresentationModel<QuartoCompletoDTO> {
+
+    @Schema(description = "Identificador único do quarto", example = "10")
     private long id;
+
+    @Schema(description = "Tipo do quarto", example = "Suíte")
     private String tipo;
+
+    @Schema(description = "Quantidade de camas no quarto", example = "2")
     private int quantidadeCamas;
+
+    @Schema(description = "Indica se o quarto possui banheiro privativo", example = "true")
     private boolean banheiroPrivativo;
+
+    @Schema(description = "Área do quarto em metros quadrados", example = "25.5")
     private double areaM2;
+
+    @Schema(description = "Resumo do imóvel ao qual o quarto pertence")
     private ImovelResumoDTO imovel;
+
+    @Schema(description = "Descrição detalhada do quarto", example = "Quarto amplo com vista para o jardim")
     private String descricao;
+
 
     public QuartoCompletoDTO() {
     }
@@ -66,5 +86,11 @@ public class QuartoCompletoDTO {
 
     public void setImovel(ImovelResumoDTO imovel) {
         this.imovel = imovel;
+    }
+
+    @Schema(hidden = true)  // oculta no Swagger UI
+    // opcional: oculta no JSON (se quiser)
+    public Links getLinks() {
+        return super.getLinks();
     }
 }
