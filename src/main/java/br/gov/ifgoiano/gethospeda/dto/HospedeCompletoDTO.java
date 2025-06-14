@@ -2,7 +2,7 @@ package br.gov.ifgoiano.gethospeda.dto;
 
 import java.util.Date;
 
-public class HospedeCompletoDTO {
+public class HospedeCompletoDTO extends UsuarioResumoDTO{
     private String rg;
     private Date dataNascimento;
 
@@ -29,4 +29,6 @@ public class HospedeCompletoDTO {
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
     }
+
+
 }

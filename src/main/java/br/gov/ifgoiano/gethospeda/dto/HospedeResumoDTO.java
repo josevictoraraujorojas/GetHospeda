@@ -1,6 +1,6 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-public class HospedeResumoDTO {
+public class HospedeResumoDTO extends UsuarioResumoDTO{
     private String rg;
 
     public HospedeResumoDTO() {

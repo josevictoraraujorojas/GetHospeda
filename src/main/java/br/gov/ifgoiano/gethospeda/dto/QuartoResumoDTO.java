@@ -1,6 +1,5 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;

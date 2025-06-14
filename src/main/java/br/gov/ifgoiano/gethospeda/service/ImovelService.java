@@ -91,7 +91,7 @@ public class ImovelService {
         imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         List<AvaliacaoImovelResumoDTO> avaliacaoImovelResumoDTOS = avaliacaoImovelService.findByImovel(id);
         avaliacaoImovelResumoDTOS.forEach(avaliacaoImovelResumoDTO -> {
-            avaliacaoImovelResumoDTO.add(linkTo(methodOn(AvaliacaoImovelController.class).getAvaliacaoImovel(avaliacaoImovelResumoDTO.getId())).withSelfRel());
+            avaliacaoImovelResumoDTO.add(linkTo(methodOn(AvaliacaoImovelController.class).findById(avaliacaoImovelResumoDTO.getId())).withSelfRel());
         });
         return avaliacaoImovelResumoDTOS;
     }

@@ -1,11 +1,25 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.hateoas.Links;
+import org.springframework.hateoas.RepresentationModel;
+
 import java.util.Date;
 
-public class ReservaResumoDTO {
+@Schema(name = "ReservaResumoDTO", description = "Informações resumidas de uma reserva")
+public class ReservaResumoDTO extends RepresentationModel<ReservaResumoDTO> {
+
+    @Schema(description = "Identificador único da reserva", example = "101")
     private long id;
+
+    @Schema(description = "Data em que a reserva foi realizada", example = "2025-06-14T09:00:00Z")
     private Date reserva;
+
+    @Schema(description = "Valor total da reserva", example = "450.75")
     private double valorTotal;
+
+    @Schema(description = "Status atual da reserva", example = "CONFIRMADA")
+    private String status;
 
     public ReservaResumoDTO() {
     }
@@ -32,5 +46,18 @@ public class ReservaResumoDTO {
 
     public void setValorTotal(double valorTotal) {
         this.valorTotal = valorTotal;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    @Schema(hidden = true)
+    public Links getLinks() {
+        return super.getLinks();
     }
 }

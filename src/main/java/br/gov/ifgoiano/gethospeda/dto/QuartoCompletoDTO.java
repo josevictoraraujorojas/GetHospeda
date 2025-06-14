@@ -1,8 +1,11 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.hateoas.Links;
+import org.springframework.hateoas.RepresentationModel;
 
-public class QuartoCompletoDTO {
+
+public class QuartoCompletoDTO extends RepresentationModel<QuartoCompletoDTO> {
 
     @Schema(description = "Identificador único do quarto", example = "10")
     private long id;
@@ -24,6 +27,7 @@ public class QuartoCompletoDTO {
 
     @Schema(description = "Descrição detalhada do quarto", example = "Quarto amplo com vista para o jardim")
     private String descricao;
+
 
     public QuartoCompletoDTO() {
     }
@@ -82,5 +86,11 @@ public class QuartoCompletoDTO {
 
     public void setImovel(ImovelResumoDTO imovel) {
         this.imovel = imovel;
+    }
+
+    @Schema(hidden = true)  // oculta no Swagger UI
+    // opcional: oculta no JSON (se quiser)
+    public Links getLinks() {
+        return super.getLinks();
     }
 }

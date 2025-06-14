@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 public class AvaliacaoImovelResumoDTO extends RepresentationModel<AvaliacaoImovelResumoDTO> {
@@ -23,5 +25,11 @@ public class AvaliacaoImovelResumoDTO extends RepresentationModel<AvaliacaoImove
 
     public void setNota(int nota) {
         this.nota = nota;
+    }
+
+    @Schema(hidden = true)  // oculta no Swagger UI
+    // opcional: oculta no JSON (se quiser)
+    public Links getLinks() {
+        return super.getLinks();
     }
 }
