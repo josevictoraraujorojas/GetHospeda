@@ -1,7 +1,9 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.FutureOrPresent;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.PastOrPresent;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -17,7 +19,7 @@ public class SolicitaServicoDTO extends RepresentationModel<SolicitaServicoDTO> 
     private Long servicoId;
 
     @NotNull(message = "A data de solicitação é obrigatória.")
-    @PastOrPresent(message = "A data de solicitação não pode ser no futuro.")
+    @FutureOrPresent(message = "A data de solicitação não pode ser no passado.")
     private Date dataSolicitacao;
 
     public SolicitaServicoDTO() {
@@ -58,4 +60,10 @@ public class SolicitaServicoDTO extends RepresentationModel<SolicitaServicoDTO> 
     public int hashCode() {
         return Objects.hash(reservaId, servicoId, dataSolicitacao);
     }
+
+    @Schema(hidden = true) // oculta no Swagger UI
+    public Links getLinks() {
+        return super.getLinks();
+    }
+
 }

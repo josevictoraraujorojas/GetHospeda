@@ -1,6 +1,8 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -41,5 +43,10 @@ public class CadastraEventoDTO extends RepresentationModel<SolicitaServicoDTO> i
 
     public void setDataCadastro(Date dataCadastro) {
         this.dataCadastro = dataCadastro;
+    }
+
+    @Schema(hidden = true) // oculta no Swagger UI
+    public Links getLinks() {
+        return super.getLinks();
     }
 }

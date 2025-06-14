@@ -7,6 +7,7 @@ import br.gov.ifgoiano.gethospeda.dto.ReservaCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.ReservaResumoDTO;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Reserva;
+import br.gov.ifgoiano.gethospeda.model.StatusReserva;
 import br.gov.ifgoiano.gethospeda.repository.ReservaRepository;
 import br.gov.ifgoiano.gethospeda.util.DataMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,7 @@ public class ReservaService {
     }
 
     @Cacheable(value = "reservasPorQuartoEStatus", key = "#quartoId + '-' + #status")
-    public List<ReservaResumoDTO> findByQuartoIdAndStaus(long quartoId, String status) {
+    public List<ReservaResumoDTO> findByQuartoIdAndStaus(long quartoId, StatusReserva status) {
         logger.info("findByQuartoIdAndStatus");
         List<Reserva> reservas = reservaRepository.findByQuartoIdAndStatus(quartoId, status);
         return DataMapper.parseListObjects(reservas, ReservaResumoDTO.class);
@@ -65,8 +66,9 @@ public class ReservaService {
     @CacheEvict(value = {"todasReservas", "reservasPorQuarto", "reservasPorQuartoEStatus", "reserva"}, allEntries = true)
     public ReservaCompletoDTO save(ReservaCreateDTO reserva) {
         logger.info("save");
-        if (reservaRepository.findByQuartoIdAndStatus(reserva.getQuarto().getId(), "confirmada").isEmpty()) {
+        if (reservaRepository.findByQuartoIdAndStatus(reserva.getQuarto().getId(), StatusReserva.valueOf("CONCLUIDA")).isEmpty()) {
             Reserva reservaNova = reservaRepository.save(DataMapper.parseObject(reserva, Reserva.class));
+            reservaNova.setStatus(StatusReserva.valueOf("CONCLUIDA"));
             return DataMapper.parseObject(reservaNova, ReservaCompletoDTO.class);
         }
         return null;

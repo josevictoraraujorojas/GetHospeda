@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
+import br.gov.ifgoiano.gethospeda.dto.EventoCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.EventoDTO;
 import br.gov.ifgoiano.gethospeda.dto.EventoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
@@ -35,7 +36,7 @@ public class EventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = EventoDTOOutput.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -54,7 +55,7 @@ public class EventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = EventoDTOOutput.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -74,7 +75,7 @@ public class EventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = EventoDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -93,14 +94,14 @@ public class EventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = EventoDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public EventoDTO salvar(@RequestBody @Valid EventoDTO eventoDTO) {
+    public EventoDTO salvar(@RequestBody @Valid EventoCreateDTO eventoDTO) {
         return service.save(eventoDTO);
     }
 
@@ -112,7 +113,7 @@ public class EventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = EventoDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -132,16 +133,10 @@ public class EventoController {
     @Operation(summary = "Deletar evento", description = "Deletar evento",
             tags = {"Evento"},
             responses = {
-                    @ApiResponse(description = "Success", responseCode = "200",
-                            content = {
-                                    @Content(
-                                            mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
-                                    )
-                            }),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Success", responseCode = "200"),
+                    @ApiResponse(description = "Bad Request", responseCode = "400"),
+                    @ApiResponse(description = "Not Found", responseCode = "404"),
+                    @ApiResponse(description = "Internal Error", responseCode = "500"),
             })
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
         try {

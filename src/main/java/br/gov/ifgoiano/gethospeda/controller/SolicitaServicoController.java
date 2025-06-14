@@ -33,7 +33,7 @@ public class SolicitaServicoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = SolicitaServicoDTOOutput.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -58,7 +58,7 @@ public class SolicitaServicoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = SolicitaServicoDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -77,7 +77,7 @@ public class SolicitaServicoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = SolicitaServicoDTOOutput.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -92,16 +92,10 @@ public class SolicitaServicoController {
     @Operation(summary = "Deletar uma solicitação de serviço", description = "Deletar uma solicitação de serviço",
             tags = {"Solicitações de Serviço"},
             responses = {
-                    @ApiResponse(description = "Success", responseCode = "200",
-                            content = {
-                                    @Content(
-                                            mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
-                                    )
-                            }),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Success", responseCode = "200"),
+                    @ApiResponse(description = "Bad Request", responseCode = "400"),
+                    @ApiResponse(description = "Not Found", responseCode = "404"),
+                    @ApiResponse(description = "Internal Error", responseCode = "500"),
             })
     public void deletar(@RequestBody SolicitaServicoDTO solicitacao) {
         service.delete(solicitacao);

@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import br.gov.ifgoiano.gethospeda.model.StatusReserva;
 import io.swagger.v3.oas.annotations.media.Schema;
 import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
@@ -19,7 +20,7 @@ public class ReservaResumoDTO extends RepresentationModel<ReservaResumoDTO> {
     private double valorTotal;
 
     @Schema(description = "Status atual da reserva", example = "CONFIRMADA")
-    private String status;
+    private StatusReserva status;
 
     public ReservaResumoDTO() {
     }
@@ -48,11 +49,11 @@ public class ReservaResumoDTO extends RepresentationModel<ReservaResumoDTO> {
         this.valorTotal = valorTotal;
     }
 
-    public String getStatus() {
+    public StatusReserva getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusReserva status) {
         this.status = status;
     }
 

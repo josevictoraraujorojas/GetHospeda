@@ -69,7 +69,7 @@ public class ImovelService {
     @Cacheable(value = "servicosPorImovel", key = "#id")
     public List<ServicoResumoDTO> servicoFindByImovel(long id) {
         imovelRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-        List<ServicoResumoDTO> servicoResumoDTOS = servicoService.findByImovel(id);
+        List<ServicoResumoDTO> servicoResumoDTOS = DataMapper.parseListObjects(servicoService.findByImovelId(id),ServicoResumoDTO.class);
         servicoResumoDTOS.forEach(servicoResumoDTO -> {
             servicoResumoDTO.add(linkTo(methodOn(ServicoController.class).buscarPorId(servicoResumoDTO.getId())).withSelfRel());
         });

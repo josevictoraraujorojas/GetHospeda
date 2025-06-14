@@ -35,7 +35,7 @@ public class CadastraEventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEvento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEventoDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -54,7 +54,7 @@ public class CadastraEventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEvento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEventoDTOOutput.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -74,12 +74,12 @@ public class CadastraEventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEvento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEventoDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content)
             })
     public CadastraEventoDTO cadastrar(@RequestBody CadastraEventoDTO cadastro) {
         return service.save(cadastro);
@@ -93,7 +93,7 @@ public class CadastraEventoController {
                             content = {
                                     @Content(
                                             mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = Evento.class))
+                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEventoDTO.class))
                                     )
                             }),
                     @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
@@ -108,16 +108,10 @@ public class CadastraEventoController {
     @Operation(summary = "Deleta o cadastro em um evento", description = "Deleta o cadastro em um evento",
             tags = {"CadastraEvento"},
             responses = {
-                    @ApiResponse(description = "Success", responseCode = "200",
-                            content = {
-                                    @Content(
-                                            mediaType = "application/json",
-                                            array = @ArraySchema(schema = @Schema(implementation = CadastraEvento.class))
-                                    )
-                            }),
-                    @ApiResponse(description = "Bad Request", responseCode = "400", content = @Content),
-                    @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
-                    @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
+                    @ApiResponse(description = "Success", responseCode = "200"),
+                    @ApiResponse(description = "Bad Request", responseCode = "400"),
+                    @ApiResponse(description = "Not Found", responseCode = "404"),
+                    @ApiResponse(description = "Internal Error", responseCode = "500"),
             })
     public void deletar(@RequestBody CadastraEventoDTO cadastro) {
         service.delete(cadastro);

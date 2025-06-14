@@ -1,5 +1,7 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -52,4 +54,10 @@ public class SolicitaServicoDTOOutput extends RepresentationModel<SolicitaServic
     public int hashCode() {
         return Objects.hash(reservaId, servicoId, dataSolicitacao);
     }
+
+    @Schema(hidden = true) // oculta no Swagger UI
+    public Links getLinks() {
+        return super.getLinks();
+    }
+
 }

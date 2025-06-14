@@ -101,6 +101,9 @@ public class ReservaController {
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ReservaCompletoDTO> add(@RequestBody ReservaCreateDTO reserva) {
         ReservaCompletoDTO created = reservaService.save(reserva);
+        if (created==null){
+            return ResponseEntity.badRequest().build();
+        }
         return ResponseEntity.status(201).body(created);
     }
 

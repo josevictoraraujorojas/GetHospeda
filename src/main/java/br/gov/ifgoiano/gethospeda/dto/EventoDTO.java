@@ -2,6 +2,7 @@ package br.gov.ifgoiano.gethospeda.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -119,5 +120,10 @@ public class EventoDTO extends RepresentationModel<EventoDTO> implements Seriali
     @Override
     public int hashCode() {
         return Objects.hash(id, nome, local, descricao, dataInicio, dataFim, capacidade, imovel);
+    }
+
+    @Schema(hidden = true) // oculta no Swagger UI
+    public Links getLinks() {
+        return super.getLinks();
     }
 }

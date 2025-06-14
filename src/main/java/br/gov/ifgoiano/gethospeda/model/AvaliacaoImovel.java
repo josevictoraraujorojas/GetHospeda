@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity
 @Table(name = "avaliacao_imovel")
@@ -13,7 +14,7 @@ public class AvaliacaoImovel implements Serializable {
     private long id;
     private int nota;
     private String comentario;
-    private Double dataAvaliacao;
+    private Date dataAvaliacao;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
     private Hospede hospede;
@@ -48,11 +49,11 @@ public class AvaliacaoImovel implements Serializable {
         this.comentario = comentario;
     }
 
-    public Double getDataAvaliacao() {
+    public Date getDataAvaliacao() {
         return dataAvaliacao;
     }
 
-    public void setDataAvaliacao(Double dataAvaliacao) {
+    public void setDataAvaliacao(Date dataAvaliacao) {
         this.dataAvaliacao = dataAvaliacao;
     }
 

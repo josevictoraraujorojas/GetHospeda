@@ -65,7 +65,7 @@ public class AreaService {
     }
 
     public boolean deleteById(Long id) {
-        if (areaRepository.findById(id).isEmpty()) {
+        if (!areaRepository.findById(id).isEmpty()) {
             areaRepository.deleteById(id);
             return true;
         }

@@ -16,7 +16,7 @@ public class Reserva {
     private Date dataFim;
     private Date reserva;
     private double valorTotal;
-    private String status;
+    private StatusReserva status;
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "hospede_id",referencedColumnName = "id")
     private Hospede hospede;
@@ -69,12 +69,20 @@ public class Reserva {
         this.valorTotal = valorTotal;
     }
 
-    public String getStatus() {
+    public StatusReserva getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(StatusReserva status) {
         this.status = status;
+    }
+
+    public List<SolicitaServico> getServicos() {
+        return servicos;
+    }
+
+    public void setServicos(List<SolicitaServico> servicos) {
+        this.servicos = servicos;
     }
 
     public Hospede getHospede() {

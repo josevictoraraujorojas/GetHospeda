@@ -2,6 +2,7 @@ package br.gov.ifgoiano.gethospeda.service;
 
 import br.gov.ifgoiano.gethospeda.controller.ImovelController;
 import br.gov.ifgoiano.gethospeda.dto.EventoDTOOutput;
+import br.gov.ifgoiano.gethospeda.dto.ServicoCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
@@ -46,7 +47,7 @@ public class ServicoService {
     }
 
     @Cacheable(value = "servicos", key = "#imovelId")
-    public List<ServicoDTOOutput> findByImovelId(int imovelId) {
+    public List<ServicoDTOOutput> findByImovelId(long imovelId) {
 
         var servicos = repository.findByImovelId(imovelId);
         if (servicos.isEmpty()) {
@@ -60,7 +61,7 @@ public class ServicoService {
         return servicosDto;
     }
 
-    public ServicoDTO save(ServicoDTO servicoDTO) {
+    public ServicoDTO save(ServicoCreateDTO servicoDTO) {
         var servicoEntity = DataMapper.parseObject(servicoDTO, br.gov.ifgoiano.gethospeda.model.Servico.class);
 
         var servicoSaved = repository.save(servicoEntity);

@@ -1,6 +1,8 @@
 package br.gov.ifgoiano.gethospeda.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.v3.oas.annotations.media.Schema;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.util.Date;
@@ -94,5 +96,10 @@ public class EventoDTOOutput extends RepresentationModel<EventoDTOOutput> {
     @Override
     public int hashCode() {
         return Objects.hash(id, nome, local, descricao, dataInicio, dataFim, capacidade, imovel);
+    }
+
+    @Schema(hidden = true) // oculta no Swagger UI
+    public Links getLinks() {
+        return super.getLinks();
     }
 }

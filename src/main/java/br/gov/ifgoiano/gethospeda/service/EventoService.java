@@ -1,10 +1,7 @@
 package br.gov.ifgoiano.gethospeda.service;
 
 import br.gov.ifgoiano.gethospeda.controller.ImovelController;
-import br.gov.ifgoiano.gethospeda.dto.EventoDTO;
-import br.gov.ifgoiano.gethospeda.dto.EventoDTOOutput;
-import br.gov.ifgoiano.gethospeda.dto.EventoResumoDTO;
-import br.gov.ifgoiano.gethospeda.dto.ServicoResumoDTO;
+import br.gov.ifgoiano.gethospeda.dto.*;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
 import br.gov.ifgoiano.gethospeda.model.Evento;
 import br.gov.ifgoiano.gethospeda.model.Imovel;
@@ -68,7 +65,7 @@ public class EventoService {
         return DataMapper.parseListObjects(eventos, EventoResumoDTO.class);
     }
 
-    public EventoDTO save(EventoDTO eventoDTO) {
+    public EventoDTO save(EventoCreateDTO eventoDTO) {
         var eventoEntity = DataMapper.parseObject(eventoDTO, br.gov.ifgoiano.gethospeda.model.Evento.class);
 
         var eventoSaved = repository.save(eventoEntity);

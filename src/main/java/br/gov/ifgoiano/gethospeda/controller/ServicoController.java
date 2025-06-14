@@ -1,5 +1,6 @@
 package br.gov.ifgoiano.gethospeda.controller;
 
+import br.gov.ifgoiano.gethospeda.dto.ServicoCreateDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTO;
 import br.gov.ifgoiano.gethospeda.dto.ServicoDTOOutput;
 import br.gov.ifgoiano.gethospeda.exception.ResourceNotFoundException;
@@ -99,7 +100,7 @@ public class ServicoController {
                     @ApiResponse(description = "Not Found", responseCode = "404", content = @Content),
                     @ApiResponse(description = "Internal Error", responseCode = "500", content = @Content),
             })
-    public ServicoDTO salvar(@RequestBody @Valid ServicoDTO servicoDTO) {
+    public ServicoDTO salvar(@RequestBody @Valid ServicoCreateDTO servicoDTO) {
         return service.save(servicoDTO);
     }
 

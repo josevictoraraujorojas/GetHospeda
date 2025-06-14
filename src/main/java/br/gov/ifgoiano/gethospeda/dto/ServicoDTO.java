@@ -4,6 +4,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
+import org.springframework.hateoas.Links;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.io.Serializable;
@@ -96,5 +97,10 @@ public class ServicoDTO extends RepresentationModel<ServicoDTO> implements Seria
     @Override
     public int hashCode() {
         return Objects.hash(id, nome, descricao, preco, disponibilidade, imovel);
+    }
+
+    @Schema(hidden = true) // oculta no Swagger UI
+    public Links getLinks() {
+        return super.getLinks();
     }
 }
