@@ -15,6 +15,8 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -64,15 +66,28 @@ public class ReservaService {
     }
 
     @CacheEvict(value = {"todasReservas", "reservasPorQuarto", "reservasPorQuartoEStatus", "reserva"}, allEntries = true)
-    public ReservaCompletoDTO save(ReservaCreateDTO reserva) {
-        logger.info("save");
-        if (reservaRepository.findByQuartoIdAndStatus(reserva.getQuarto().getId(), StatusReserva.valueOf("CONCLUIDA")).isEmpty()) {
-            Reserva reservaNova = reservaRepository.save(DataMapper.parseObject(reserva, Reserva.class));
-            reservaNova.setStatus(StatusReserva.valueOf("CONCLUIDA"));
-            return DataMapper.parseObject(reservaNova, ReservaCompletoDTO.class);
+    public ReservaCompletoDTO save(ReservaCreateDTO reservaDTO) {
+        logger.info("Tentando salvar nova reserva...");
+
+        List<Reserva> conflitos = reservaRepository.findReservasConflitantes(
+                reservaDTO.getQuarto().getId(),
+                reservaDTO.getDataInicio(),
+                reservaDTO.getDataFim()
+        );
+
+        if (!conflitos.isEmpty()) {
+            return null; // ou lançar uma exceção personalizada
         }
-        return null;
+
+        Reserva novaReserva = DataMapper.parseObject(reservaDTO, Reserva.class);
+        novaReserva.setStatus(StatusReserva.CONCLUIDA);
+        novaReserva = reservaRepository.save(novaReserva);
+
+        return DataMapper.parseObject(novaReserva, ReservaCompletoDTO.class);
     }
+
+
+
 
     @CacheEvict(value = {"todasReservas", "reservasPorQuarto", "reservasPorQuartoEStatus", "reserva"}, allEntries = true)
     public ReservaCompletoDTO update(ReservaCompletoDTO reserva) {

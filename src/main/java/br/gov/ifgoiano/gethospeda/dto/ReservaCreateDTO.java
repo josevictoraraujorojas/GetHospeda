@@ -13,6 +13,10 @@ public class ReservaCreateDTO {
     private Date dataInicio;
 
     @NotNull
+    @Schema(description = "Data de termino da reserva", example = "2025-09-01T14:00:00Z", required = true)
+    private Date dataFim;
+
+    @NotNull
     @Schema(description = "Data em que a reserva foi realizada", example = "2025-06-14T08:30:00Z", required = true)
     private Date reserva;
 
@@ -57,5 +61,13 @@ public class ReservaCreateDTO {
 
     public void setHospede(HospedeResumoDTO hospede) {
         this.hospede = hospede;
+    }
+
+    public @NotNull Date getDataFim() {
+        return dataFim;
+    }
+
+    public void setDataFim(@NotNull Date dataFim) {
+        this.dataFim = dataFim;
     }
 }

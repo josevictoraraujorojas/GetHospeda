@@ -12,7 +12,7 @@ public class OpenApiConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("RESTful API with Java and Spring Boot")
+                        .title("API GetHospeda")
                         .version("v1")
                         .description("API sobre o gerenciamento de hospedagem")
                         .termsOfService("https://ifgoiano.urt.gov/projetos")
